@@ -11,7 +11,10 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText
+    Form,
+    FormGroup,
+    Input,
+    Button
   } from 'reactstrap';
 class Header extends Component{
     constructor(props){
@@ -24,7 +27,8 @@ class Header extends Component{
     render(){
         return(
     <div>
-      <Navbar color="dark" dark expand="md" id="sidebar" >
+      <Navbar className="navbar-dark" dark expand="md" id="sidebar" >
+        <div className="container-fluid">
         <NavbarBrand href="/">CompLane</NavbarBrand>
         <NavbarToggler onClick={this.togglenav} />
         <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -56,7 +60,14 @@ class Header extends Component{
             </UncontrolledDropdown>
             </div>
           </Nav>
+          <Form className="form-inline">
+                <FormGroup>
+                    <Input type="text" name="query" placeholder="Search" className="mr-2"/>{'   '}
+                    <Button outline color="primary" id="searchButton"> Search </Button>
+                </FormGroup>
+            </Form> 
         </Collapse>
+        </div>
       </Navbar>
       </div>
         )
