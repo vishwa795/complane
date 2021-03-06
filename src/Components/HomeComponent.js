@@ -1,4 +1,4 @@
-import react,{Component} from 'react';
+import React,{Component} from 'react';
 import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
 import {stateData} from '../shared/exampleData';
@@ -47,7 +47,7 @@ class Home extends Component{
                         <span>
                             {isHovered ? 
                             <h1>Active: {this.state.hoveredState.active} 
-                                <small>(+{this.state.new_today})</small> 
+                                <small>(+{this.state.hoveredState.new_today})</small> 
                             </h1> 
                             : 
                             <h1>Active: {this.state.active} 
