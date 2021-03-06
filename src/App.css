@@ -50,3 +50,21 @@ ul{
   width:40vw;
   height:auto;
 }
+
+#svg2{
+  width: 100%;
+  height: auto;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .large-screen-text{
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1{
+    font-size: x-large;
+  }
+}
