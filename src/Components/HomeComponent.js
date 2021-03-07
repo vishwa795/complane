@@ -14,18 +14,15 @@ class Home extends Component{
         }
     }
     changeOnHover = (stateCode) =>{
-        console.log("HERE is whats inside ",stateCode,stateData[stateCode]);
         this.setState({
             hoveredState:stateData[stateCode],
             isHovered:true
-        },()=>{
-            console.log("mouse in",this.state)
         });
     }
     mouseOut = () =>{
         this.setState({
             isHovered:!this.state.isHovered
-        },()=>console.log("After Mouse Out",this.state))
+        })
     } 
     render(){
         var isHovered = this.state.isHovered;
@@ -33,7 +30,6 @@ class Home extends Component{
             <div className="container-fluid">
             <div className="row">
                 <div className="col-12 col-md-7 large-screen-text">
-                    <Typist>
                     <div className="top-text">
                         <br/>
                         <h1>781 Districts. 26 States. 1 Stop for all Complaints</h1>
@@ -44,20 +40,23 @@ class Home extends Component{
                     </div>
                     <div className="bottom-text">
                         <br/>
-                        <span>
                             {isHovered ? 
+                            <div>
                             <h1>Active: {this.state.hoveredState.active} 
                                 <small>(+{this.state.hoveredState.new_today})</small> 
                             </h1> 
+                            <br />
+                            <h1>Resolved Today: {this.state.hoveredState.res_today}</h1>
+                            </div>
                             : 
+                            <div>
                             <h1>Active: {this.state.active} 
-                                <small>(+{this.state.new_today})</small>
-                            </h1>}
-                        <br />
-                        <h1>Resolved Today: {this.state.res_today}</h1>
-                        </span>
+                                <small>(+{this.state.new_today})</small> 
+                            </h1> 
+                            <br />
+                            <h1>Resolved Today: {this.state.res_today}</h1>
+                            </div>}
                     </div>
-                    </Typist>
                     <div class="pie-chart">    
                     </div>
                 </div>

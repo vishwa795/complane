@@ -6,7 +6,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -16,6 +15,7 @@ import {
     Input,
     Button
   } from 'reactstrap';
+  import {NavLink} from 'react-router-dom';
 class Header extends Component{
     constructor(props){
         super(props);
@@ -35,12 +35,12 @@ class Header extends Component{
           <Nav className="mr-auto" navbar>
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink href="#">Home</NavLink>
+              <NavLink className="nav-link" to="/home">Home</NavLink>
             </NavItem>
             </div>
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink href="#">Login</NavLink>
+              <NavLink className="nav-link" to="/login">Login</NavLink>
             </NavItem>
             </div>
             <div className="sidebar-list">
