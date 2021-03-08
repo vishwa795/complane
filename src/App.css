@@ -3,9 +3,6 @@ body{
   font-family: 'Century Gothic','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width:100vw;
 }
-ul{
-  flex-direction: column;
-}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -61,6 +58,11 @@ ul{
   .large-screen-text{
     text-align: right;
   }
+  .login-box{
+    margin-top: 3%;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -68,3 +70,40 @@ ul{
     font-size: x-large;
   }
 }
+
+.nav-link:hover{
+  border-bottom: 2px solid #3282b8;
+}
+
+.modal-content{
+  background-color: #1b262c6b;
+  backdrop-filter: blur(5px);
+  color:#dad6d6;
+}
+
+.login-image{
+  width:100%;
+  height: auto;
+  border-radius: 25px;
+}
+
+.g-button{
+  background-color: azure;
+  color:#1b262c;
+  width:100%;
+}
+.fb-button{
+  background-color: #3b5998;
+  width:100%
+}
+
+hr{
+  background-color: darkgrey;
+}
+
+.login-button{
+  color:azure;
+  width: fit-content;
+}
+
+

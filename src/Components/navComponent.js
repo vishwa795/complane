@@ -13,17 +13,22 @@ import {
     Form,
     FormGroup,
     Input,
-    Button
+    Button,
+    Modal,ModalBody, Label, Col, Row
   } from 'reactstrap';
   import {NavLink} from 'react-router-dom';
+  import LoginModal from './LogInComponent';
 class Header extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isNavOpen : false
+            isNavOpen : false,
+            isModalOpen: false,
+            isSignInModalOpen:false
         }
     }
-    togglenav = () => this.setState({isNavOpen : !this.state.isNavOpen})
+    togglenav = () => this.setState({isNavOpen : !this.state.isNavOpen});
+    toggle = () => this.setState({isModalOpen:!this.state.isModalOpen});
     render(){
         return(
     <div>
@@ -35,12 +40,12 @@ class Header extends Component{
           <Nav className="mr-auto" navbar>
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink className="nav-link" to="/home">Home</NavLink>
+              <NavLink className="nav-link" to="/home"><span className="fa fa-lg fa-home"/> Home</NavLink>
             </NavItem>
             </div>
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink className="nav-link" to="/login">Login</NavLink>
+              <NavLink className="nav-link" to="/login"><span className="fa fa-lg fa-rocket " /> Trending Topics</NavLink>
             </NavItem>
             </div>
             <div className="sidebar-list">
@@ -62,13 +67,17 @@ class Header extends Component{
           </Nav>
           <Form className="form-inline">
                 <FormGroup>
-                    <Input type="text" name="query" placeholder="Search" className="mr-2"/>{'   '}
-                    <Button outline color="primary" id="searchButton"> Search </Button>
+                    <Input type="text" name="query" placeholder="Search" className="m-1 ml-auto"/>{'   '}
+                    <Button outline color="primary" id="searchButton" className="m-1 ml-auto mb-auto" ><span className="fa fa-lg fa-search " /> Search </Button>
                 </FormGroup>
-            </Form> 
+            </Form>
+            <span>
+              <Button outline color="success" id="login-button" onClick={this.toggle} ><span className="fa fa-lg fa-sign-in " /> Login </Button>
+            </span>
         </Collapse>
         </div>
       </Navbar>
+      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle}/>
       </div>
         )
     }

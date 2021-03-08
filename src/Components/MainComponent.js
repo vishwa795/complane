@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Header from './navComponent'
 import Home from './HomeComponent';
 import {Route,Redirect,withRouter, Switch} from 'react-router-dom';
-
 class Main extends Component{
     render(){
         return(
