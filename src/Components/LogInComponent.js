@@ -3,10 +3,13 @@ import {Modal,ModalBody,Form,FormGroup,Label,Input,Button,Col,Row} from 'reactst
 function LoginModal(props){
     let content;
     if(props.isLogin){
-        content = <Login toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} /> //TODO provide the methods created in navComponent.
+        content = <Login toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} toggleForgotPasswordContent ={props.toggleForgotPasswordContent}/> //TODO provide the methods created in navComponent.
     }
     else if(props.isSignup){
         content = <Signup toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} />
+    }
+    else if(props.isForgotPassword){
+        content = <ForgotPassword toggleLoginContent={props.toggleLoginContent} toggleForgotPasswordContent ={props.toggleForgotPasswordContent}/>
     }
     return(
           <div>
@@ -32,8 +35,12 @@ function Login(props){
                             <Input type="password" name="password" id="password" placeholder="Enter your password here"/>
                           </FormGroup>
                           <div className="d-flex justify-content-end">
-                            <a href="#">Forgot Your Password ?</a>
+                            <a href="#" onClick={() => {
+                                props.toggleLoginContent();
+                                props.toggleForgotPasswordContent();
+                            }}>Forgot Your Password ?</a>
                           </div>
+                          <br />
                           <FormGroup className="d-flex justify-content-center">
                             <Button name="login" className="login-button bg-success">Log In <span className="fa fa-md fa-arrow-right " /></Button>
                           </FormGroup>
@@ -59,7 +66,7 @@ function Login(props){
 
 function Signup(props){
     return(
-        <ModalBody>
+                <ModalBody>
                     <div className="d-flex justify-content-center">
                       <h1>Sign Up</h1>
                     </div>
@@ -99,5 +106,31 @@ function Signup(props){
     )
 }
 
+function ForgotPassword(props){
+    return(
+                <ModalBody>
+                    <div className="d-flex justify-content-center">
+                      <div><h1>Forgot Password?</h1></div>
+                    </div>
+                    <hr />
+                        <Form>
+                          <FormGroup>
+                            <Label for="username">Enter your email</Label>
+                            <Input type="email" name="username" id="username" placeholder="Enter your Email here"/>
+                          </FormGroup>
+                          <div className="d-flex justify-content-end">
+                            <a href="#" onClick={()=>{
+                                props.toggleForgotPasswordContent();
+                                props.toggleLoginContent();
+                            }} >Remembered your password?</a>
+                          </div>
+                          <br />
+                          <FormGroup className="d-flex justify-content-center">
+                            <Button name="login" className="bg-primary">Send Reset Link<span className="fa fa-md fa-arrow-right " /></Button>
+                          </FormGroup>
+                        </Form>
+                </ModalBody>
+    )
+}
 
 export default LoginModal;

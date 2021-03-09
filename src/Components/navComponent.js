@@ -1,21 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Form,
-    FormGroup,
-    Input,
-    Button,
-    Modal,ModalBody, Label, Col, Row
-  } from 'reactstrap';
+import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,UncontrolledDropdown,DropdownToggle,DropdownMenu,DropdownItem,Form,FormGroup,Input,Button } from 'reactstrap';
   import {NavLink} from 'react-router-dom';
   import LoginModal from './LogInComponent';
 class Header extends Component{
@@ -25,17 +9,19 @@ class Header extends Component{
             isNavOpen : false,
             isModalOpen: false,
             isLogin:true,
-            isSignup:false
+            isSignup:false,
+            isForgotPassword:false
         }
     }
     togglenav = () => this.setState({isNavOpen : !this.state.isNavOpen});
     toggle = () => this.setState({isModalOpen:!this.state.isModalOpen});
     toggleLoginContent = () => this.setState({isLogin:!this.state.isLogin});
     toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
+    toggleForgotPasswordContent = () => this.setState({isForgotPassword:!this.state.isForgotPassword});
     render(){
         return(
     <div>
-      <Navbar className="navbar-dark" dark expand="md" id="sidebar" >
+      <Navbar className="navbar-dark" dark expand="lg" id="sidebar" >
         <div className="container-fluid">
         <NavbarBrand href="/">CompLane</NavbarBrand>
         <NavbarToggler onClick={this.togglenav} />
@@ -80,7 +66,7 @@ class Header extends Component{
         </Collapse>
         </div>
       </Navbar>
-      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle} isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent} />
+      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle} isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent} isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent} />
       </div>
         )
     }
