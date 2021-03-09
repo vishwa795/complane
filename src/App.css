@@ -58,10 +58,8 @@ body{
   .large-screen-text{
     text-align: right;
   }
-  .login-box{
-    margin-top: 3%;
-    margin-left: 20%;
-    margin-right: 20%;
+  .nav-link:hover{
+    border-bottom: 2px solid #3282b8;
   }
 }
 
@@ -71,10 +69,9 @@ body{
   }
 }
 
-.nav-link:hover{
-  border-bottom: 2px solid #3282b8;
+.modal{
+  background-color: #00000070;
 }
-
 .modal-content{
   background-color: #1b262c6b;
   backdrop-filter: blur(5px);

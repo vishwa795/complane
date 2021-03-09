@@ -24,11 +24,14 @@ class Header extends Component{
         this.state = {
             isNavOpen : false,
             isModalOpen: false,
-            isSignInModalOpen:false
+            isLogin:true,
+            isSignup:false
         }
     }
     togglenav = () => this.setState({isNavOpen : !this.state.isNavOpen});
     toggle = () => this.setState({isModalOpen:!this.state.isModalOpen});
+    toggleLoginContent = () => this.setState({isLogin:!this.state.isLogin});
+    toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
     render(){
         return(
     <div>
@@ -77,7 +80,7 @@ class Header extends Component{
         </Collapse>
         </div>
       </Navbar>
-      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle}/>
+      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle} isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent} />
       </div>
         )
     }
