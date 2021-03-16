@@ -32,18 +32,27 @@ export const complaintsData = [
         id:1,
         title:"Roads have a problem",
         description:"The roads in my area, that is, Kaggadasapura have been very bad. Please try to correct it soon",
-        upvotes:278
+        upvotes:278,
+        isResolved:false,
+        state:"Karnataka",
+        District:"Bengaluru"
     },
     {
         id:2,
         title:"Water Scarcity",
         description:"Water has become a lot scarce this year. Kindly help those in need with adequate supply of water. Many people in my area are sufferring withou water for basic neccesities",
-        upvotes:37
+        upvotes:37,
+        isResolved:false,
+        state:"Karnataka",
+        District:"Bengaluru"
     },
     {
         id:3,
         title:"Power Cuts",
         description:"There are regular power cuts in my area and for people like me working from home, this becomes a huge problem as our offices are working online and without regular electricity it causes us inconvinence for completing our daily tasks. Kindly ensure to provide continious supply of electricty!",
-        upvotes:567
+        upvotes:567,
+        isResolved:true,
+        state:"Tamil Nadu",
+        District:"Chennai"
     }
 ]
