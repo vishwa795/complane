@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Card,CardTitle, CardBody, CardImg, CardText} from 'reactstrap';
 import {complaintsData} from "../shared/exampleData";
-import ReactDOM from 'react-dom';
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 
@@ -10,11 +9,11 @@ import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 
 
 export class ComplaintListCardComponent extends Component{
-    state={
-        data:complaintsData,
-    }
     constructor(props){
         super(props);
+        this.state={
+            data:complaintsData,
+        }
     }
 
     upvote=(id)=>{

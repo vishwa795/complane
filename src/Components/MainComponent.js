@@ -4,6 +4,7 @@ import Home from './HomeComponent';
 import DetailedComplaint from './detailedComplaintComponent';
 import {complaintsData} from '../shared/exampleData';
 import {Route,Redirect,withRouter, Switch} from 'react-router-dom';
+import ComplaintListComponent from './complaintListComponent';
 class Main extends Component{
     render(){
         const DetailedComplaintLocal = ({match}) =>{
@@ -17,6 +18,7 @@ class Main extends Component{
                 <Header/>
                     <Switch location={this.props.location}>
                         <Route path="/home" component={Home} />
+                        <Route exact path="/complaints" component={ComplaintListComponent} />
                         <Route path="/complaints/:complaintID" component={DetailedComplaintLocal} />
                         <Redirect to ="/home" />
                     </Switch>
