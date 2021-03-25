@@ -2,7 +2,8 @@ body{
   background-color: #1b262c;
   font-family: 'Century Gothic','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width:100vw;
-}
+} 
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -104,3 +105,10 @@ hr{
 }
 
 
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}

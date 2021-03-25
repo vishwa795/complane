@@ -67,7 +67,9 @@ class Header extends Component{
         </div>
       </Navbar>
       <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle} isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent} isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent} />
+      
       </div>
+      
         )
     }
 }
