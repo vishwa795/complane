@@ -4,6 +4,7 @@ body{
   box-sizing: border-box;
   color:#dad6d6;
 }
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -160,3 +161,10 @@ text-align: center;
 
 
 
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
