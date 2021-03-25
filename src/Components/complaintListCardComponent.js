@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Card,CardTitle, CardBody, CardImg, CardText} from 'reactstrap';
 import {complaintsData} from "../shared/exampleData";
-import ReactDOM from 'react-dom';
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 
@@ -10,11 +9,11 @@ import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 
 
 export class ComplaintListCardComponent extends Component{
-    state={
-        data:complaintsData,
-    }
     constructor(props){
         super(props);
+        this.state={
+            data:complaintsData,
+        }
     }
 
     upvote=(id)=>{
@@ -34,14 +33,14 @@ export class ComplaintListCardComponent extends Component{
         const renderComments = this.state.data.map((c) =>{
           return(
             
-            <div style={{padding: "20px 20px 0px 20px "}} className="col-md-6" key={c.id.toString()}> 
+            <div className="col-md-5 p-1 m-1" key={c.id.toString()}> 
             <Card style={{flex:1, backgroundColor:'#343a40'}}>
             <CardBody>
             <CardTitle>
             <div color="dark" className="row">
             <div className="col-md-9">
             <div> 
-                <a href="/complaints/{c.id}"> 
+                <a href="/complaints/${c.id}"> 
                     <b style={{color:"white"}}>
                         {c.title}
                     </b>

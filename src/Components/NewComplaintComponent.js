@@ -51,7 +51,8 @@ const NewComplaintComponent = (props) => {
       <br/>
       
       <Modal isOpen={modal} toggle={toggle} >
-        <ModalHeader style={{borderBottomWidth:"5px"}} toggle={toggle}>Enter the details of your Issue!</ModalHeader>
+        <ModalHeader toggle={toggle}>Enter the details of your Issue!</ModalHeader>
+        <hr/>
         <ModalBody>
         <div><input style={{borderRadius:"3px", width:"100%"}} type="text" name="title" id="title" placeholder="Enter the Title"/></div>
         <br/>

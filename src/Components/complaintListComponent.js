@@ -13,7 +13,7 @@ export default class ComplaintListComponent extends Component{
     render(){
         return(
             <>
-            <Header/>
+            
             <NewComplaintComponent />
             <div>
                 
