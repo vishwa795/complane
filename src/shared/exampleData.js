@@ -35,16 +35,22 @@ export const complaintsData = [
         upvotes:278,
         isResolved:false,
         state:"Karnataka",
-        District:"Bengaluru"
+        District:"Bengaluru",
+        assignedTo: "Department of Roads",
+        status:["Complaint Registered","Department Checking on the issue"],
+        keywords:["Roads","Kaggadasapura"]
     },
     {
         id:2,
         title:"Water Scarcity",
-        description:"Water has become a lot scarce this year. Kindly help those in need with adequate supply of water. Many people in my area are sufferring withou water for basic neccesities",
+        description:"Water has become a lot scarce this year. Kindly help those in need with adequate supply of water. Many people in my area are sufferring without water for basic neccesities",
         upvotes:37,
         isResolved:false,
         state:"Karnataka",
-        District:"Bengaluru"
+        District:"Bengaluru",
+        assignedTo:"Department of Water",
+        status:["Complaint Registered","Department Checking on the issue"],
+        keywords:["Water","Scarce","Sufferring without water"]
     },
     {
         id:3,
@@ -53,6 +59,9 @@ export const complaintsData = [
         upvotes:567,
         isResolved:true,
         state:"Tamil Nadu",
-        District:"Chennai"
+        District:"Chennai",
+        assignedTo:"Department of Electricity",
+        status:["Complaint Registered","Department Checking on the issue","Issue Resolved"],
+        keywords:["Power cuts","Electricity","Inconvinence"]
     }
 ]
