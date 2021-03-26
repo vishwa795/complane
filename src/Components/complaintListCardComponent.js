@@ -38,49 +38,60 @@ export class ComplaintListCardComponent extends Component{
     
 
     render(){
-        const renderComments = this.state.data.map((c) =>{
+        const renderComplaints = this.state.data.map((c) =>{
           return(
-            
-            <div style={{padding:"20px 20px 0px 20px"}} className="col-md-6" key={c.id.toString()}> 
+            <ComplaintCard complaint={c} />
+          )
+        } )
+    
+
+    return(
+        <div className="row">
+        {renderComplaints}
+        </div>
+    );
+    }
+
+}
+
+function ComplaintCard(props){
+    const [upvotes,updateUpvotes]=useState(props.complaint.upvotes);
+    const [isClicked, setIsClicked] = useState(false);
+    const increment = () => {
+        if(isClicked){
+            updateUpvotes(upvotes-1);
+        }
+        else{
+            updateUpvotes(upvotes+1);
+        }
+        setIsClicked(!isClicked);
+    }
+    return(
+        <div style={{padding:"20px 20px 0px 20px"}} className="col-md-6" key={props.complaint.id.toString()}> 
             <Card style={{flex:1, backgroundColor:'#343a40'}}>
             <CardBody>
             <CardTitle>
             <div color="dark" className="row">
             <div className="col-md-9">
             <div> 
-                <a href="/complaints/`c.id`"> 
+                <a href="/complaints/`props.complaint.id`"> 
                     <b style={{color:"white"}}>
-                        {c.title}
+                        {props.complaint.title}
                     </b>
                 </a>
             </div>
             <br />
             </div> 
             <div className="col-md-3" >
-            <b style={{color:"white"}}>{c.upvotes} </b><button style={{ backgroundColor:'#343a40'}} onClick={this.increment} ><BiUpvote/></button>
+            <b style={{color:"white"}}>{upvotes} </b><span onClick={increment} ><BiUpvote id="upvote" className={isClicked ? "upvote-button" : null} /></span>
             </div>   
             </div>
             </CardTitle>
             <p style={{color:"white"}}>
-                <WordLimit limit={100}>{c.description}</WordLimit> 
+                <WordLimit limit={100}>{props.complaint.description}</WordLimit> 
             </p>
             </CardBody>
             </Card>
             </div>
-            
-            
-          );
-        } )
-    
-
-    return(
-        <div className="row">
-        
-        {renderComments}
-        
-            
-        </div>
-    );
-
-}
+    )
 }

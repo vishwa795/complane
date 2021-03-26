@@ -168,3 +168,12 @@ textarea {
   width: 100%;
   overflow-x: hidden;
 }
+
+.upvote-button{
+  fill:#5FC978;
+}
+
+#upvote:hover{
+  fill-rule: evenodd;
+  fill: #5fc978a6;
+}
