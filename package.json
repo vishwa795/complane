@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material/textfield": "^10.0.0",
+    "@mobiscroll/react-lite": "^4.10.8",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.0",
@@ -13,6 +17,7 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-popper": "^2.2.4",
+    "react-remove-scroll-bar": "^2.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-step-progress-bar": "^1.0.3",
