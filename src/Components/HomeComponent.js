@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
 import {stateData} from '../shared/exampleData';
-import {ComplaintListCardComponent} from './complaintListCardComponent';
 class Home extends Component{
     constructor(props){
         super(props);

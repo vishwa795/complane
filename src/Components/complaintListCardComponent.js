@@ -1,9 +1,9 @@
 import React, {Component, useState} from 'react';
-import {Card,CardTitle, CardBody, CardImg, CardText} from 'reactstrap';
+import {Card,CardTitle, CardBody} from 'reactstrap';
 import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
-
+import {Link} from 'react-router-dom';
 
 
 
@@ -16,26 +16,6 @@ export class ComplaintListCardComponent extends Component{
 
         }
     }
-
-    // upvote=(id)=>{
-    //      var item=this.state.data[id];
-    //      console.log(item)
-    //      item.upvotes+=1;
-    //      this.state.data[id]=item;
-    // }
-
-    
-
-    increment = () => {
-        this.setState({ clicks: this.state.clicks + 1 });
-      }
-
-
-    componentDidMount(){
-        console.log(this.state.data[0]);
-    }
-
-    
 
     render(){
         const renderComplaints = this.state.data.map((c) =>{
@@ -74,11 +54,11 @@ function ComplaintCard(props){
             <div color="dark" className="row">
             <div className="col-md-9">
             <div> 
-                <a href="/complaints/`props.complaint.id`"> 
+                <Link to={`/complaints/${props.complaint.id}`}> 
                     <b style={{color:"white"}}>
                         {props.complaint.title}
                     </b>
-                </a>
+                </Link>
             </div>
             <br />
             </div> 

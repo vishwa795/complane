@@ -22,16 +22,10 @@ export default function DetailedComplaint(props){
         <span class="fa fa-lg fa-lock mr-1"></span>
         Closed</Button>
     const [popUpStatus1,setPopUpStatus1] = useState(false);
-    const toggleStatus1 = () => setPopUpStatus1(!popUpStatus1);
 
     const [popUpStatus2,setPopUpStatus2] = useState(false);
-    const toggleStatus2 = () => setPopUpStatus2(!popUpStatus2);
 
     const [popUpStatus3,setPopUpStatus3] = useState(false);
-    const toggleStatus3 = () => setPopUpStatus3(!popUpStatus3);
-
-    const [popUpStatus4,setPopUpStatus4] = useState(false);
-    const toggleStatus4 = () => setPopUpStatus4(!popUpStatus4);
 
     return(
         <div className="detailedComplaint">
