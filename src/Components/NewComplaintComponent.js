@@ -24,7 +24,7 @@ const NewComplaintComponent = (props) => {
   return (
     <div>
       
-      <br/>
+      <br/> 
       <center><Button style={{width: "40%"}} color="dark" onClick={toggle}><b>{buttonLabel}</b></Button></center>
       <br/>
       <Modal isOpen={modal} toggle={toggle} size="lg" >
