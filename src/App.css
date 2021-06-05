@@ -274,3 +274,30 @@ textarea#description{
   transform: translate3d(0, -100%, 0);
   opacity: 1;
 }
+
+#trendingtopics{
+  font-Size:"250%";
+
+}
+
+.text-center col-md-6{
+  text-align:"center";
+  margin-left:"auto";
+  margin-Right:"auto";
+
+}
+
+
+#wordcloudcard{
+  width:"75%";
+  margin-left:"10%";
+  margin-Bottom:"2%";
+  margin-Top:"2%";
+  margin-Right: "0px";
+  background-Color:"dark";
+}
+
+
+#wordcloudcardtitle{
+  font-size:"150%";
+}

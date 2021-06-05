@@ -32,13 +32,25 @@ class Header extends Component{
               <NavLink className="nav-link" to="/home"><span className="fa fa-lg fa-home"/> Home</NavLink>
             </NavItem>
             </div>
+
+            
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink className="nav-link" to="/login"><span className="fa fa-lg fa-rocket " /> Trending Topics</NavLink>
+              <NavLink className="nav-link" to="/trendingcomplaints"><span className="fa fa-lg fa-rocket " /> Trending Topics</NavLink>
+            </NavItem>
+            </div>
+            
+
+            <div className="sidebar-list">
+            <NavItem className="side-item">
+              <NavLink className="nav-link" to="/complaints"><span className="fa fa-lg fa-comments-o " /> Complaints</NavLink>
             </NavItem>
             </div>
             <div className="sidebar-list">
-            <UncontrolledDropdown nav inNavbar className="side-item">
+            
+           {/* Used a normal link to complaints instead */}
+           
+            {/* <UncontrolledDropdown nav inNavbar className="side-item">
               <DropdownToggle nav caret>
                 Complaints
               </DropdownToggle>
@@ -51,7 +63,12 @@ class Header extends Component{
                   Status
                 </DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
+
+            {/* Used a normal link to complaints instead   */}
+
+
+
             </div>
           </Nav>
           <Form className="form-inline">
