@@ -11,8 +11,7 @@ export default class ComplaintListComponent extends Component{
     render(){
         return(
             <div id="complaint_list_page">
-            
-            <NewComplaintComponent />
+                <NewComplaintComponent isUserLoggedIn={this.props.isUserLoggedIn} toggleLoginModal={this.props.toggleLoginModal} />
             <div >
                 
                 <ComplaintListCardComponent/>

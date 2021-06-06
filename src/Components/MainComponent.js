@@ -18,7 +18,7 @@ class Main extends Component{
             isForgotPassword:false,
 
             user:null,
-            isUsedLoggedIn:true,
+            isUserLoggedIn:false,
             isUserLoading:false,
             userError:false,
 
@@ -54,6 +54,36 @@ class Main extends Component{
     toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
     toggleForgotPasswordContent = () => this.setState({isForgotPassword:!this.state.isForgotPassword});
 
+    componentDidMount(){
+        const accessToken = localStorage.getItem('accessToken');
+        if(accessToken){
+            fetch('http://localhost:4000/users/authorize',{
+                method:'GET',
+                mode:'no-cors',
+                headers:{'Content-Type':'application/json',
+            'Authorization':'Bearer '+accessToken}
+            })
+            .then(res => res.json())
+            .then(user => {
+                this.setState({user:user,isUserLoading:false,isUserLoggedIn:true});
+            },error => console.log(error.message))
+            .catch(error => console.log(error.message));
+        }
+        this.setState({isComplaintsLoading:true});
+        fetch('http://localhost:4000/complaints',{
+            method:'GET',
+            headers:{
+                "Access-Control-Allow-Origin":"*"
+            }
+        })
+        .then(res=>res.json())
+        .then(complaints =>{
+            console.log('Here are the complaints ',complaints);
+            this.setState({complaintsData:complaints})
+        }, error => console.log('Rejected',error.message))
+        .catch(error => console.log(error.message))
+    }
+
     render(){
         const DetailedComplaintLocal = ({match}) =>{
             //TODO: change == to === once mongoDB is set because both lhs and RHS will be in form of string
@@ -69,7 +99,7 @@ class Main extends Component{
                   
                     <Switch location={this.props.location}>
                         <Route path="/home" component={Home} />
-                        <Route exact path="/complaints" component={ComplaintListComponent} />
+                        <Route exact path="/complaints" component={() => <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} />} />
                         <Route path="/complaints/:complaintID" component={DetailedComplaintLocal} />
                         <Route path="/trendingcomplaints" name="trendingcomplaints" render={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
                         {/* <Route path="/wordcloud" name="wordcloud" render={props => <Wordcloud {...props} Wordcloud={this.state.Wordcloud} />} /> */}

@@ -20,19 +20,19 @@ const NewComplaintComponent = (props) => {
     <div>
       
       <br/> 
-      <center><Button id="new_complaint_button" color="dark" onClick={toggle}><b>{buttonLabel}</b></Button></center>
+      <center><Button id="new_complaint_button" color="dark" onClick={props.isUserLoggedIn? toggle : props.toggleLoginModal}><b>{buttonLabel}</b></Button></center>
       <br/>
       <Modal isOpen={modal} toggle={toggle} size="lg" >
-        <ModalHeader toggle={toggle}><center><b>Enter the details of your Issue!</b></center></ModalHeader>
         <ModalBody>
+        <h3 className="mb-4"><center><b>Enter the details of your Issue!</b></center></h3>
         <form>
           <NewComplaintFormComponent />
-        </form> 
+          <div className="text-center">
+            <Button color="primary" outline onClick={toggle}>Submit</Button>{' '}
+            <Button color="danger" outline onClick={toggle}>Cancel</Button>
+          </div>
+        </form>
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Submit</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
       </Modal>
     </div>
   );

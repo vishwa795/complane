@@ -81,7 +81,7 @@ body{
   background-color: #00000070;
 }
 .modal-content{
-  background-color: #1b262c6b;
+  background-color: #1f2338;
   backdrop-filter: blur(5px);
   color:#dad6d6;
 }
@@ -208,6 +208,7 @@ textarea {
 
 #new_complaint_button{
   width: 40%;
+  height: 100px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 } 
 
@@ -258,7 +259,7 @@ textarea#description{
   padding: 7px 0 0 13px;
   transition: all 200ms;
   opacity: 0.5;
-  color:black;
+  color:rgb(124, 124, 124);
 }
 
 
