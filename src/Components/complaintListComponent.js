@@ -10,14 +10,14 @@ import {RemoveScrollBar} from 'react-remove-scroll-bar';
 export default class ComplaintListComponent extends Component{
     render(){
         return(
-            <>
-            <RemoveScrollBar />  
+            <div id="complaint_list_page">
+            
             <NewComplaintComponent />
-            <div>
+            <div >
                 
                 <ComplaintListCardComponent/>
             </div>
-            </>
+            </div>
         );
     }
 }

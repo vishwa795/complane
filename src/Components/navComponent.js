@@ -18,14 +18,18 @@ class Header extends Component{
               <NavLink className="nav-link" to="/home"><span className="fa fa-lg fa-home"/> Home</NavLink>
             </NavItem>
             </div>
+
+            
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink className="nav-link" to="/login"><span className="fa fa-lg fa-rocket " /> Trending Topics</NavLink>
+              <NavLink className="nav-link" to="/trendingcomplaints"><span className="fa fa-lg fa-rocket " /> Trending Topics</NavLink>
             </NavItem>
             </div>
+            
+
             <div className="sidebar-list">
             <NavItem className="side-item">
-              <NavLink className="nav-link" to="/Complaints">Complaints</NavLink>
+              <NavLink className="nav-link" to="/complaints"><span className="fa fa-lg fa-comments-o " /> Complaints</NavLink>
             </NavItem>
             </div>
           </Nav>

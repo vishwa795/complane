@@ -9,6 +9,7 @@ body{
   width: 10px;
 }
 
+
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 3px rgba(43, 42, 42, 0.692); 
@@ -176,4 +177,127 @@ textarea {
 #upvote:hover{
   fill-rule: evenodd;
   fill: #5fc978a6;
+}
+
+#upvote_number{
+  color:white;
+}
+
+#min_description{
+  color:white;
+} 
+
+#card_title{
+  color:white;  
+  text-emphasis-color: white;
+} 
+
+#card{
+  flex:1;
+  background-color: #343a40;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+} 
+
+ .card-body{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+} 
+
+#card_div{
+  padding:20px 20px 10px 20px;
+} 
+
+#new_complaint_button{
+  width: 40%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+} 
+
+#new_complaint_description{
+  height:100%;
+}  
+
+textarea#description{
+  height:100px;
+  border-radius: 3px;
+} 
+
+
+
+#complaint_list_page{
+  overflow: hidden;
+}
+
+
+#modal_state_name{
+  font-size:120%;
+}
+
+#modal_state_name_dropdown{
+  color:#4c4c4c;
+  width:100%;
+  
+} 
+
+#modal_district_name{
+  font-Size:120%; color:#DADAD6
+} 
+
+#modal_district_name_dropdown{
+  color:#4c4c4c; 
+  width:100%;
+}
+
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-control-placeholder {
+  position: absolute;
+  top: 0;
+  padding: 7px 0 0 13px;
+  transition: all 200ms;
+  opacity: 0.5;
+  color:black;
+}
+
+
+.form-control:valid + .form-control-placeholder {
+  font-size: 120%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+} 
+
+.form-control:focus + .form-control-placeholder{
+  color:#DADAD6;
+  font-size: 120%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+}
+
+#trendingtopics{
+  font-Size:"250%";
+
+}
+
+.text-center col-md-6{
+  text-align:"center";
+  margin-left:"auto";
+  margin-Right:"auto";
+
+}
+
+
+#wordcloudcard{
+  width:"75%";
+  margin-left:"10%";
+  margin-Bottom:"2%";
+  margin-Top:"2%";
+  margin-Right: "0px";
+  background-Color:"dark";
+}
+
+
+#wordcloudcardtitle{
+  font-size:"150%";
 }

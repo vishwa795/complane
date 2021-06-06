@@ -47,15 +47,15 @@ function ComplaintCard(props){
         setIsClicked(!isClicked);
     }
     return(
-        <div style={{padding:"20px 20px 0px 20px"}} className="col-md-6" key={props.complaint.id.toString()}> 
-            <Card style={{flex:1, backgroundColor:'#343a40'}}>
+        <div id="card_div" className="col-md-6" key={props.complaint.id.toString()}> 
+            <Card id="card">
             <CardBody>
             <CardTitle>
             <div color="dark" className="row">
             <div className="col-md-9">
             <div> 
                 <Link to={`/complaints/${props.complaint.id}`}> 
-                    <b style={{color:"white"}}>
+                    <b id="card_title">
                         {props.complaint.title}
                     </b>
                 </Link>
@@ -63,11 +63,11 @@ function ComplaintCard(props){
             <br />
             </div> 
             <div className="col-md-3" >
-            <b style={{color:"white"}}>{upvotes} </b><span onClick={increment} ><BiUpvote id="upvote" className={isClicked ? "upvote-button" : null} /></span>
+            <b id="upvote_number" >{upvotes} </b><span onClick={increment} ><BiUpvote id="upvote" className={isClicked ? "upvote-button" : null} /></span>
             </div>   
             </div>
             </CardTitle>
-            <p style={{color:"white"}}>
+            <p id="min_description">
                 <WordLimit limit={100}>{props.complaint.description}</WordLimit> 
             </p>
             </CardBody>
