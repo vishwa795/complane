@@ -1,31 +1,17 @@
 import React, {Component} from 'react';
-import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,UncontrolledDropdown,DropdownToggle,DropdownMenu,DropdownItem,Form,FormGroup,Input,Button } from 'reactstrap';
+import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Form,FormGroup,Input,Button } from 'reactstrap';
   import {NavLink} from 'react-router-dom';
   import LoginModal from './LogInComponent';
 class Header extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            isNavOpen : false,
-            isModalOpen: false,
-            isLogin:true,
-            isSignup:false,
-            isForgotPassword:false
-        }
-    }
-    togglenav = () => this.setState({isNavOpen : !this.state.isNavOpen});
-    toggle = () => this.setState({isModalOpen:!this.state.isModalOpen});
-    toggleLoginContent = () => this.setState({isLogin:!this.state.isLogin});
-    toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
-    toggleForgotPasswordContent = () => this.setState({isForgotPassword:!this.state.isForgotPassword});
     render(){
+      console.log('Here in header',this.props);
         return(
     <div>
       <Navbar className="navbar-dark" dark expand="lg" id="sidebar" >
         <div className="container-fluid">
         <NavbarBrand href="/">CompLane</NavbarBrand>
-        <NavbarToggler onClick={this.togglenav} />
-        <Collapse isOpen={this.state.isNavOpen} navbar>
+        <NavbarToggler onClick={this.props.togglenav} />
+        <Collapse isOpen={this.props.isNavOpen} navbar>
           <Nav className="mr-auto" navbar>
             <div className="sidebar-list">
             <NavItem className="side-item">
@@ -38,20 +24,9 @@ class Header extends Component{
             </NavItem>
             </div>
             <div className="sidebar-list">
-            <UncontrolledDropdown nav inNavbar className="side-item">
-              <DropdownToggle nav caret>
-                Complaints
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Add New Complaints
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Status
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <NavItem className="side-item">
+              <NavLink className="nav-link" to="/Complaints">Complaints</NavLink>
+            </NavItem>
             </div>
           </Nav>
           <Form className="form-inline">
@@ -61,12 +36,12 @@ class Header extends Component{
                 </FormGroup>
             </Form>
             <span>
-              <Button outline color="success" id="login-button" onClick={this.toggle} ><span className="fa fa-lg fa-sign-in " /> Login </Button>
+              <Button outline color="success" id="login-button" onClick={this.props.toggle} ><span className="fa fa-lg fa-sign-in " /> Login </Button>
             </span>
         </Collapse>
         </div>
       </Navbar>
-      <LoginModal isModalOpen={this.state.isModalOpen} toggle={this.toggle} isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent} isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent} />
+      <LoginModal isModalOpen={this.props.isModalOpen} toggle={this.props.toggle} isLogin={this.props.isLogin} toggleLoginContent={this.props.toggleLoginContent} isSignup={this.props.isSignup} toggleSignupContent={this.props.toggleSignupContent} isForgotPassword={this.props.isForgotPassword} toggleForgotPasswordContent={this.props.toggleForgotPasswordContent} />
       
       </div>
       
