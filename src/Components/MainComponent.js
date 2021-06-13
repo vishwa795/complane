@@ -70,25 +70,13 @@ class Main extends Component{
             .catch(error => console.log(error.message));
         }
         this.setState({isComplaintsLoading:true});
-        fetch('http://localhost:4000/complaints',{
-            method:'GET',
-            headers:{
-                "Access-Control-Allow-Origin":"*"
-            }
-        })
-        .then(res=>res.json())
-        .then(complaints =>{
-            console.log('Here are the complaints ',complaints);
-            this.setState({complaintsData:complaints})
-        }, error => console.log('Rejected',error.message))
-        .catch(error => console.log(error.message))
     }
 
     render(){
         const DetailedComplaintLocal = ({match}) =>{
             //TODO: change == to === once mongoDB is set because both lhs and RHS will be in form of string
             return(
-            <DetailedComplaint complaint={complaintsData.filter((complaint) => complaint.id == match.params.complaintID)[0]} />
+            <DetailedComplaint complaint={this.state.complaintsData.filter((complaint) => complaint._id == match.params.complaintID)[0]} />
             )
         }
         return(

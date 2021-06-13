@@ -16,13 +16,41 @@ export class ComplaintListCardComponent extends Component{
 
         }
     }
+    componentDidMount(){
+        fetch('http://localhost:4000/complaints',{
+            method:'GET',
+            headers:{
+                "Access-Control-Allow-Origin":"*"
+            }
+        })
+        .then(res=>res.json())
+        .then(complaints =>{
+            console.log('Here are the complaints ',complaints);
+            this.setState({data:complaints})
+        }, error => console.log('Rejected',error.message))
+        .catch(error => console.log(error.message))
+    }
 
     render(){
-        const renderComplaints = this.state.data.map((c) =>{
-          return(
-            <ComplaintCard complaint={c} />
-          )
-        } )
+        let renderComplaints;
+
+        if(this.state.data.length >0){
+            renderComplaints = this.state.data.map((c) =>{
+                console.log(c);
+                  return(
+                  <ComplaintCard complaint={c} />
+                )
+              })
+        }
+        else{
+            renderComplaints = (
+                <div className="container">
+                    <div className="text-center">
+                        <h2>No Complaints Found</h2>
+                    </div>
+                </div>
+            )
+        }
     
 
     return(
@@ -35,7 +63,8 @@ export class ComplaintListCardComponent extends Component{
 }
 
 function ComplaintCard(props){
-    const [upvotes,updateUpvotes]=useState(props.complaint.upvotes);
+    console.log('Complaint',props);
+    const [upvotes,updateUpvotes]=useState(props.complaint.votes);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {
         if(isClicked){
@@ -47,14 +76,14 @@ function ComplaintCard(props){
         setIsClicked(!isClicked);
     }
     return(
-        <div id="card_div" className="col-md-6" key={props.complaint.id.toString()}> 
+        <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
             <Card id="card">
             <CardBody>
             <CardTitle>
             <div color="dark" className="row">
             <div className="col-md-9">
             <div> 
-                <Link to={`/complaints/${props.complaint.id}`}> 
+                <Link to={`/complaints/${props.complaint._id}`}> 
                     <b id="card_title">
                         {props.complaint.title}
                     </b>
@@ -68,7 +97,7 @@ function ComplaintCard(props){
             </div>
             </CardTitle>
             <p id="min_description">
-                <WordLimit limit={100}>{props.complaint.description}</WordLimit> 
+                <WordLimit limit={100}>{props.complaint.desc}</WordLimit> 
             </p>
             </CardBody>
             </Card>

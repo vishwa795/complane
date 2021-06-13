@@ -31,7 +31,7 @@ export default function DetailedComplaint(props){
         <div className="detailedComplaint">
             <div className="jumbotron bg-dark languages">
                 <div className="container">
-                    <h1><Link to="/complaints">{props.complaint.state} / {props.complaint.District}</Link></h1>
+                    <h1><Link to="/complaints">{props.complaint.state} / {props.complaint.district}</Link></h1>
                 </div>
             </div>
             <div className="container">
@@ -48,7 +48,7 @@ export default function DetailedComplaint(props){
                     <div className="col-12 col-md-9 p-2">
                         <div className="card complaint-card mb-3">
                             <div className="card-body">
-                                <h4>{props.complaint.description}</h4>
+                                <h4>{props.complaint.desc}</h4>
                             </div>
                         </div>
                         <div className="card complaint-card">
@@ -116,14 +116,14 @@ export default function DetailedComplaint(props){
                                 Assigned to:
                                 </Row>
                                 <Row>
-                                    <h5>{props.complaint.assignedTo}</h5>
+                                    <h5>{props.complaint.departmentTag}</h5>
                                 </Row>
                                 <hr />
                                 <Row className="mb-2">
                                 Labels:
                                 </Row>
                                 <Row>
-                                    <LabelMaker keywords={props.complaint.keywords} />
+                                    <LabelMaker keywords={props.complaint.keywordSet} />
                                 </Row>
                                 <hr />
                                 </div>
