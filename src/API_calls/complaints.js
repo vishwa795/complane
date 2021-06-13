@@ -90,7 +90,7 @@ export function getAllNewResolvedComplaints(state) {
   })
 }
 
-async function getActiveComplaintCount(state) {
+export async function getActiveComplaintCount(state) {
   return new Promise(async (resolve, reject)=>{
     try{
       const activeComplaintsCount = await fetch(url + `/complaints/count/active?state=${state}`).then(res => res.json());

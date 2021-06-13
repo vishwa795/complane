@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
 import {stateData} from '../shared/exampleData';
-import {getActiveTodayComplaintCount} from '../API_calls/complaints'
+import {getActiveTodayComplaintCount, getActiveComplaintCount, getResolvedTodayComplaintCount} from '../API_calls/complaints'
 
 class Home extends Component{
     constructor(props){
@@ -23,6 +23,21 @@ class Home extends Component{
                 console.log('Here is the count',count);
                 this.setState({new_today:count});
             })
+
+            getActiveComplaintCount('ALL')
+            .then(activeEveryday => {
+                const count = activeEveryday.count;
+                console.log("Everyday Count", count);
+                this.setState({active:count})
+            })
+
+            getResolvedTodayComplaintCount('ALL')
+            .then(resolvedToday => {
+                const count = resolvedToday.count;
+                console.log("Resolved today count", count);
+                this.setState({res_today:count})
+            })
+
         }
         catch(error){
             console.log(error);
