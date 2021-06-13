@@ -4,8 +4,8 @@ import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
-
-
+import Select from 'react-select';
+import { state_list } from '../shared/state_list';
 
 
 export class ComplaintListCardComponent extends Component{
@@ -34,13 +34,22 @@ export class ComplaintListCardComponent extends Component{
     render(){
         let renderComplaints;
 
-        if(this.state.data.length >0){
-            renderComplaints = this.state.data.map((c) =>{
-                console.log(c);
-                  return(
-                  <ComplaintCard complaint={c} />
-                )
-              })
+        if(this.state.data.length > 0){
+            renderComplaints = (
+                <>
+                <div id="state_name_dropdown_main_div" className="container">    
+                    <b id="state_name_dropdown_main"><Select options={state_list} placeholder="To get state-wise complaints, select the State... "/></b>
+                </div> 
+                <div className="row">
+                {this.state.data.map((c) =>{
+                    console.log(c);
+                      return(
+                      <ComplaintCard complaint={c} />
+                    )
+                  })}
+                  </div>
+                </>
+            )
         }
         else{
             renderComplaints = (
@@ -54,7 +63,7 @@ export class ComplaintListCardComponent extends Component{
     
 
     return(
-        <div className="row">
+        <div>
         {renderComplaints}
         </div>
     );
@@ -76,7 +85,7 @@ function ComplaintCard(props){
         setIsClicked(!isClicked);
     }
     return(
-        <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
+            <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
             <Card id="card">
             <CardBody>
             <CardTitle>

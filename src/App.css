@@ -290,15 +290,23 @@ textarea#description{
 
 
 #wordcloudcard{
-  width:"75%";
-  margin-left:"10%";
-  margin-Bottom:"2%";
-  margin-Top:"2%";
-  margin-Right: "0px";
-  background-Color:"dark";
+  width:75%;
+  margin-left:10%;
+  margin-Bottom:2%;
+  margin-Top:2%;
+  margin-Right: 0px;
+  background-Color:dark;
 }
 
 
 #wordcloudcardtitle{
   font-size:"150%";
+}
+
+#state_name_dropdown_main{
+  color:#4c4c4c; 
+}
+
+#state_name_dropdown_main_div{
+  width:30%;
 }
