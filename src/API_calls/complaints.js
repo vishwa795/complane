@@ -16,7 +16,7 @@ complaintRegister
 
 const url ="http://localhost:4000"
 
-export function getAllComplaints(state, sort) {
+export async function getAllComplaints(state, sort) {
   return new Promise(async (resolve, reject)=>{
     try{
       const complaints = await  fetch(url + `/complaints?state=${state}&sort=${sort}`).then(res => res.json());
@@ -115,7 +115,7 @@ export function getResolvedComplaintCount(state) {
     
 }
 
-export function getActiveTodayComplaintCount(state) {
+export async function getActiveTodayComplaintCount(state) {
   return new Promise(async (resolve, reject)=>{
     try{
       const activeTodayComplaintCount = await fetch(url + `/complaints/count/active/today?state=${state}`).then(res => res.json());

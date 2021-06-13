@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
 import {stateData} from '../shared/exampleData';
+import {getActiveTodayComplaintCount} from '../API_calls/complaints'
+
 class Home extends Component{
     constructor(props){
         super(props);
@@ -11,6 +13,19 @@ class Home extends Component{
             res_today:"29",
             new_today:"16",
             hoveredState:null
+        }
+    }
+    componentDidMount(){
+        try{
+            getActiveTodayComplaintCount('ALL')
+            .then(activeToday => {
+                const count = activeToday.count;
+                console.log('Here is the count',count);
+                this.setState({new_today:count});
+            })
+        }
+        catch(error){
+            console.log(error);
         }
     }
     changeOnHover = (stateCode) =>{
