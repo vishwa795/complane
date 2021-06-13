@@ -4,38 +4,17 @@ import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
-
+import {getAllActiveComplaints} from '../API_calls/complaints';
 
 
 
 export class ComplaintListCardComponent extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            data:complaintsData,
-
-        }
-    }
-    componentDidMount(){
-        fetch('http://localhost:4000/complaints',{
-            method:'GET',
-            headers:{
-                "Access-Control-Allow-Origin":"*"
-            }
-        })
-        .then(res=>res.json())
-        .then(complaints =>{
-            console.log('Here are the complaints ',complaints);
-            this.setState({data:complaints})
-        }, error => console.log('Rejected',error.message))
-        .catch(error => console.log(error.message))
-    }
 
     render(){
         let renderComplaints;
-
-        if(this.state.data.length >0){
-            renderComplaints = this.state.data.map((c) =>{
+        console.log(this.props,'here in complaint list card');
+        if(this.props.complaints.length >0){
+            renderComplaints = this.props.complaints.map((c) =>{
                 console.log(c);
                   return(
                   <ComplaintCard complaint={c} />

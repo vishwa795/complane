@@ -8,7 +8,7 @@ function LabelMaker(props){
     return props.keywords.map((keyword) => {
         return(
             <div className="label-keyword m-1 p-2">
-              {keyword}
+              {keyword.keyword}
             </div>
         )
     })
@@ -58,7 +58,7 @@ export default function DetailedComplaint(props){
                                     <h3>Status</h3>
                                 </div>
                                 <ProgressBar
-                                    percent={props.complaint.status.length*100/3}
+                                    percent={0*100/3}
                                     filledBackground="linear-gradient(to right, rgba(63, 138, 204, 0.767), rgba(0, 116, 217, 0.767))"
                                 >
                                     <Step transition="scale">
@@ -116,7 +116,7 @@ export default function DetailedComplaint(props){
                                 Assigned to:
                                 </Row>
                                 <Row>
-                                    <h5>{props.complaint.departmentTag}</h5>
+                                    <h5>{props.complaint.departmentTag.replaceAll("_"," ")}</h5>
                                 </Row>
                                 <hr />
                                 <Row className="mb-2">

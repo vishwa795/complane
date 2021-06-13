@@ -45,7 +45,9 @@ class Header extends Component{
         </Collapse>
         </div>
       </Navbar>
-      <LoginModal isModalOpen={this.props.isModalOpen} toggle={this.props.toggle} isLogin={this.props.isLogin} toggleLoginContent={this.props.toggleLoginContent} isSignup={this.props.isSignup} toggleSignupContent={this.props.toggleSignupContent} isForgotPassword={this.props.isForgotPassword} toggleForgotPasswordContent={this.props.toggleForgotPasswordContent} />
+      <LoginModal isModalOpen={this.props.isModalOpen} toggle={this.props.toggle} isLogin={this.props.isLogin} toggleLoginContent={this.props.toggleLoginContent}
+       isSignup={this.props.isSignup} toggleSignupContent={this.props.toggleSignupContent} isForgotPassword={this.props.isForgotPassword}
+        toggleForgotPasswordContent={this.props.toggleForgotPasswordContent} loginUser={this.props.loginUser} />
       
       </div>
       
