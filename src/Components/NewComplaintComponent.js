@@ -25,13 +25,7 @@ const NewComplaintComponent = (props) => {
       <Modal isOpen={modal} toggle={toggle} size="lg" >
         <ModalBody>
         <h3 className="mb-4"><center><b>Enter the details of your Issue!</b></center></h3>
-        <form>
-          <NewComplaintFormComponent />
-          <div className="text-center">
-            <Button color="primary" outline onClick={toggle}>Submit</Button>{' '}
-            <Button color="danger" outline onClick={toggle}>Cancel</Button>
-          </div>
-        </form>
+        <NewComplaintFormComponent toggle={toggle} />
         </ModalBody>
       </Modal>
     </div>

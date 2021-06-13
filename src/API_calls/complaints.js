@@ -139,7 +139,7 @@ export function getResolvedTodayComplaintCount(state="ALL") {
   })
 }
 
-async function postComplaintRegister(complaintObject) {
+export async function postComplaintRegister(complaintObject) {
   return new Promise(async (resolve, reject)=>{
     try{
       const complaintRegister = await fetch(url + '/complaints/register',{
