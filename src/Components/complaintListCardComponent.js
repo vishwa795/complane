@@ -1,10 +1,8 @@
 import React, {Component, useState} from 'react';
 import {Card,CardTitle, CardBody} from 'reactstrap';
-import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
-import {getAllActiveComplaints} from '../API_calls/complaints';
 
 
 

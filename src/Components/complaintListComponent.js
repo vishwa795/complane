@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { ComplaintListCardComponent } from './complaintListCardComponent';
 import NewComplaintComponent from './NewComplaintComponent';
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
 
 //Like Quora's homepage
 //cardComponent

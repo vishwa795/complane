@@ -886,7 +886,7 @@ export const state_list = [
            {label:"Ballia",value:"Ballia"},
            {label:"Balrampur",value:"Balrampur"},
            {label:"Banda",value:"Banda"},
-           {label:"Barabanki",label:"Barabanki"},
+           {label:"Barabanki",value:"Barabanki"},
            {label:"Bareilly",value:"Bareilly"},
            {label:"Basti",value:"Basti"},
            {label:"Bhadohi",value:"Bhadohi"},
@@ -945,7 +945,7 @@ export const state_list = [
            {label:"Siddharth Nagar",value:"Siddharth Nagar"},
            {label:"Sitapur",value:"Sitapur"},
            {label:"Sonbhadra",value:"Sonbhadra"},
-           {label:"Sultanpur",label:"Sultanpur"},
+           {label:"Sultanpur",value:"Sultanpur"},
            {label:"Unnao",value:"Unnao"},
            {label:"Varanasi",value:"Varanasi"}
         ]

@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody} from 'reactstrap';
 
-import {   Col,  Form,  FormGroup,  Label,  Input,  FormText} from "reactstrap";
-import { Pattern, Match } from 'react-pattern-matching';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import NewComplaintFormComponent from './NewComplaintFormComponent'
 
 const NewComplaintComponent = (props) => {
   const {
-    buttonLabel="Have an issue? Click here. . .",
-    className
+    buttonLabel="Have an issue? Click here. . ."
   } = props;
 
   const [modal, setModal] = useState(false);

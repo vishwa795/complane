@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
-import {stateData} from '../shared/exampleData';
 import {getActiveTodayComplaintCount, getActiveComplaintCount, getResolvedTodayComplaintCount} from '../API_calls/complaints'
 
 class Home extends Component{
