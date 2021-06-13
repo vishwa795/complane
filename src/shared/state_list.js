@@ -1,6 +1,7 @@
 export const state_list = [
     {
         label:"Andaman and Nicobar Islands",
+        stateCode:'IN-AN',
         value:[
             {label:"Nicobar",value:"Nicobar"},
             {label:"North and Middle Andaman",value:"North and Middle Andaman"},
@@ -10,6 +11,7 @@ export const state_list = [
 
     {  
         label:"Andhra Pradesh",
+        stateCode:'IN-AP',
         value:[  
            {label:"Anantapur",value:"Anantapur"},
            {label:"Chittoor",value:"Chittoor"},
@@ -29,6 +31,7 @@ export const state_list = [
 
     {  
         label:"Assam",
+        stateCode:'IN-AS',
         value:[  
            {label:"Baksa",value:"Baksa"},
            {label:"Barpeta",value:"Barpeta"},
@@ -68,6 +71,7 @@ export const state_list = [
 
     {  
         label:"Arunachal Pradesh",
+        stateCode:'IN-AR',
         value:[  
            {label:"Tawang",value:"Tawang"},
            {label:"West Kameng",value:"West Kameng"},
@@ -95,6 +99,7 @@ export const state_list = [
 
     {  
         label:"Bihar",
+        stateCode:'IN-BR',
         value:[  
            {label:"Araria",value:"Araria"},
            {label:"Arwal",value:"Arwal"},
@@ -139,6 +144,7 @@ export const state_list = [
 
     {  
         label:"Chandigarh (UT)",
+        stateCode:'IN-CH',
         value:[  
            {label:"Chandigarh",value:"Chandigarh"}
         ]
@@ -146,6 +152,7 @@ export const state_list = [
 
     {  
         label:"Chhattisgarh",
+        stateCode:'IN-CT',
         value:[  
            {label:"Balod",value:"Balod"},
            {label:"Baloda Bazar",value:"Baloda Bazar"},
@@ -179,6 +186,7 @@ export const state_list = [
 
     {  
         label:"Dadra and Nagar Haveli (UT)",
+        stateCode:'IN-DN',
         value:[  
            {label:"Dadra & Nagar Haveli",value:"Dadra & Nagar Haveli"}
         ]
@@ -186,6 +194,7 @@ export const state_list = [
     
     {  
         label:"Daman and Diu (UT)",
+        stateCode:'IN-DD',
         value:[  
            {label:"Daman",value:"Daman"},
            {label:"Diu",value:"Diu"}
@@ -196,6 +205,7 @@ export const state_list = [
      
     {  
         label:"Delhi (NCT)",
+        stateCode:'IN-DL',
         value:[  
            {label:"Central Delhi",value:"Central Delhi"},
            {label:"East Delhi",value:"East Delhi"},
@@ -213,6 +223,7 @@ export const state_list = [
 
     {  
         label:"Goa",
+        stateCode:'IN-GA',
         value:[  
            {label:"North Goa",value:"North Goa"},
            {label:"South Goa",value:"South Goa"}
@@ -221,6 +232,7 @@ export const state_list = [
  
     {  
         label:"Gujarat",
+        stateCode:'IN-GJ',
         value:[  
            {label:"Ahmedabad",value:"Ahmedabad"},
            {label:"Amreli",value:"Amreli"},
@@ -260,6 +272,7 @@ export const state_list = [
 
     {  
         label:"Haryana",
+        stateCode:'IN-HR',
         value:[  
            {label:"Ambala",value:"Ambala"},
            {label:"Bhiwani",value:"Bhiwani"},
@@ -288,6 +301,7 @@ export const state_list = [
     
     {  
         label:"Himachal Pradesh",
+        stateCode:'IN-HP',
         value:[  
            {label:"Bilaspur",value:"Bilaspur"},
            {label:"Chamba",value:"Chamba"},
@@ -306,6 +320,7 @@ export const state_list = [
     
     {  
         label:"Jammu and Kashmir",
+        stateCode:'IN-JK',
         value:[  
            {label:"Anantnag",value:"Anantnag"},
            {label:"Bandipore",value:"Bandipore"},
@@ -334,6 +349,7 @@ export const state_list = [
     
     {  
         label:"Jharkhand",
+        stateCode:'IN-JH',
         value:[  
            {label:"Bokaro",value:"Bokaro"},
            {label:"Chatra",value:"Chatra"},
@@ -364,6 +380,7 @@ export const state_list = [
     
     {  
         label:"Karnataka",
+        stateCode:'IN-KA',
         value:[  
            {label:"Bagalkot",value:"Bagalkot"},
            {label:"Ballari (Bellary)",value:"Ballari (Bellary)"},
@@ -400,6 +417,7 @@ export const state_list = [
     
     {  
         label:"Kerala",
+        stateCode:'IN-KL',
         value:[  
            {label:"Alappuzha",value:"Alappuzha"},
            {label:"Ernakulam",value:"Ernakulam"},
@@ -420,6 +438,7 @@ export const state_list = [
     
     {  
         label:"Lakshadweep (UT)",
+        stateCode:'IN-LD',
         value:[  
            {label:"Agatti",value:"Agatti"},
            {label:"Amini",value:"Amini"},
@@ -436,6 +455,7 @@ export const state_list = [
 
     {  
         label:"Madhya Pradesh",
+        stateCode:'IN-MP',
         value:[  
            {label:"Agar Malwa",value:"Agar Malwa"},
            {label:"Alirajpur",value:"Alirajpur"},
@@ -493,6 +513,7 @@ export const state_list = [
     
     {  
         label:"Maharashtra",
+        stateCode:'IN-MH',
         value:[  
            {label:"Ahmednagar",value:"Ahmednagar"},
            {label:"Akola",value:"Akola"},
@@ -535,6 +556,7 @@ export const state_list = [
     
     {  
         label:"Manipur",
+        stateCode:'IN-MN',
         value:[  
            {label:"Bishnupur",value:"Bishnupur"},
            {label:"Chandel",value:"Chandel"},
@@ -557,6 +579,7 @@ export const state_list = [
     
     {  
         label:"Meghalaya",
+        stateCode:'IN-ML',
         value:[  
            {label:"East Garo Hills",value:"East Garo Hills"},
            {label:"East Jaintia Hills",value:"East Jaintia Hills"},
@@ -574,6 +597,7 @@ export const state_list = [
     
     {  
         label:"Mizoram",
+        stateCode:'IN-MZ',
         value:[  
            {label:"Aizawl",value:"Aizawl"},
            {label:"Champhai",value:"Champhai"},
@@ -588,6 +612,7 @@ export const state_list = [
     
     {  
         label:"Nagaland",
+        stateCode:'IN-NL',
         value:[  
            {label:"Dimapur",value:"Dimapur"},
            {label:"Kiphire",value:"Kiphire"},
@@ -606,6 +631,7 @@ export const state_list = [
 
     {  
         label:"Odisha",
+        stateCode:'IN-OR',
         value:[  
            {label:"Angul",value:"Angul"},
            {label:"Balangir",value:"Balangir"},
@@ -642,6 +668,7 @@ export const state_list = [
     
     {  
         label:"Puducherry (UT)",
+        stateCode:'IN-PY',
         value:[  
            {label:"Karaikal",value:"Karaikal"},
            {label:"Mahe",value:"Mahe"},
@@ -652,6 +679,7 @@ export const state_list = [
     
     {  
         label:"Punjab",
+        stateCode:'IN-PB',
         value:[  
            {label:"Amritsar",value:"Amritsar"},
            {label:"Barnala",value:"Barnala"},
@@ -680,6 +708,7 @@ export const state_list = [
     
     {  
         label:"Rajasthan",
+        stateCode:'IN-RJ',
         value:[  
            {label:"Ajmer",value:"Ajmer"},
            {label:"Alwar",value:"Alwar"},
@@ -719,6 +748,7 @@ export const state_list = [
     
     {  
         label:"Sikkim",
+        stateCode:'IN-SK',
         value:[  
            {label:"East Sikkim",value:"East Sikkim"},
            {label:"North Sikkim",value:"North Sikkim"},
@@ -729,6 +759,7 @@ export const state_list = [
 
     {  
         label:"Tamil Nadu",
+        stateCode:'IN-TN',
         value:[  
            {label:"Ariyalur",value:"Ariyalur"},
            {label:"Chennai",value:"Chennai"},
@@ -767,6 +798,7 @@ export const state_list = [
     
     {  
         label:"Telangana",
+        stateCode:'IN-TG',
         value:[  
            {label:"Adilabad",value:"Adilabad"},
            {label:"Bhadradri Kothagudem",value:"Bhadradri Kothagudem"},
@@ -804,6 +836,7 @@ export const state_list = [
     
     {  
         label:"Tripura",
+        stateCode:'IN-TR',
         value:[  
            {label:"Dhalai",value:"Dhalai"},
            {label:"Gomati",value:"Gomati"},
@@ -818,6 +851,7 @@ export const state_list = [
 
     {  
         label:"Uttarakhand",
+        stateCode:'IN-UT',
         value:[  
            {label:"Almora",value:"Almora"},
            {label:"Bageshwar",value:"Bageshwar"},
@@ -837,6 +871,7 @@ export const state_list = [
     
     {  
         label:"Uttar Pradesh",
+        stateCode:'IN-UP',
         value:[  
            {label:"Agra",value:"Agra"},
            {label:"Aligarh",value:"Aligarh"},
@@ -918,6 +953,7 @@ export const state_list = [
     
     {  
         label:"West Bengal",
+        stateCode:'IN-WB',
         value:[  
            {label:"Alipurduar",value:"Alipurduar"},
            {label:"Bankura",value:"Bankura"},

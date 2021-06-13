@@ -7,11 +7,12 @@ import {state_list} from '../shared/state_list';
 function NewComplaintFormComponent(){
     
     
-    const [result,TestingValue]=useState(state_list.value);
+    const [result,TestingValue]=useState();
     
 
     const TestingHandler = e =>{
         TestingValue(e.value);
+        console.log(e);
     }
 
     const [result2,Testing] = useState(result);

@@ -18,7 +18,7 @@ class Main extends Component{
             isForgotPassword:false,
 
             user:null,
-            isUserLoggedIn:false,
+            isUserLoggedIn:true,
             isUserLoading:false,
             userError:false,
 
