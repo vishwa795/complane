@@ -42,19 +42,19 @@ class Home extends Component{
                         <br/>
                             {isHovered ? 
                             <div>
-                            <h1>Active: {this.state.hoveredState.active} /* url + '/count/active' */ 
-                                <small>(+{this.state.hoveredState.new_today}) /* url + '/count/active/today' */</small> 
-                            </h1> 
-                            <br />
-                            <h1>Resolved Today: {this.state.hoveredState.res_today} /* url + '/count/resolved/today' */ </h1>
+                                <h1>Active: {this.state.hoveredState.active} {/* url + '/count/active' */} 
+                                    <small>(+{this.state.hoveredState.new_today}) {/* url + '/count/active/today' */}</small> 
+                                </h1> 
+                                <br />
+                                <h1>Resolved Today: {this.state.hoveredState.res_today} {/* url + '/count/resolved/today' */ } </h1>
                             </div>
                             : 
                             <div>
-                            <h1>Active: {this.state.active} /* url + '/count/active' */ 
-                                <small>(+{this.state.new_today})</small> /* url + '/count/active/today' */
-                            </h1> 
-                            <br />
-                            <h1>Resolved Today: {this.state.res_today}</h1> /* url + '/count/resolved/today' */
+                                <h1>Active: {this.state.active} {/* url + '/count/active' */ }
+                                    <small>(+{this.state.new_today})</small> {/* url + '/count/active/today' */ }
+                                </h1>
+                                <br />
+                                <h1>Resolved Today: {this.state.res_today}</h1> {/* url + '/count/resolved/today' */ }
                             </div>}
                     </div>
                     <div class="pie-chart">    
