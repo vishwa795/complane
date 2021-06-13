@@ -15,7 +15,6 @@ function NewComplaintFormComponent(props){
     const TestingHandler = e =>{
         TestingValue(e.value);
         setStateCode(e.stateCode);
-        console.log(e);
     }
 
     const [result2,Testing] = useState(result);

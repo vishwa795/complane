@@ -61,9 +61,7 @@ class Main extends Component{
         this.setState({complaintsData:complaints,isComplaintsLoading:false});
     }
     loginUser = (user) => {
-        console.log("Before Login",this.state);
         this.setState({user:user,isUserLoggedIn:true});
-        console.log("after login",this.state);
     }
     logoutUser = () => {
         this.setState({isUserLoggedIn:false,user:null});
@@ -71,13 +69,8 @@ class Main extends Component{
     }
     componentDidMount(){
         const accessToken = localStorage.getItem('accessToken');
-        console.log('accessToken is ',accessToken);
         if(accessToken){
-            console.log('fetching');
-            setTimeout(()=>{
-               authorizeUser(accessToken,this.loginUser);
-               console.log('lol');
-            },0);
+            authorizeUser(accessToken,this.loginUser);
         }
         this.setState({isComplaintsLoading:true});
         this.setComplaints();

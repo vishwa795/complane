@@ -4,7 +4,6 @@ import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Form,FormGroup,Inp
   import LoginModal from './LogInComponent';
 class Header extends Component{
     render(){
-      console.log('Here in header',this.props);
         return(
     <div>
       <Navbar className="navbar-dark" dark expand="lg" id="sidebar" >

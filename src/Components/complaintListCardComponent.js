@@ -12,10 +12,8 @@ export class ComplaintListCardComponent extends Component{
 
     render(){
         let renderComplaints;
-        console.log(this.props,'here in complaint list card');
         if(this.props.complaints.length >0){
             renderComplaints = this.props.complaints.map((c) =>{
-                console.log(c);
                   return(
                   <ComplaintCard complaint={c} />
                 )
@@ -42,7 +40,6 @@ export class ComplaintListCardComponent extends Component{
 }
 
 function ComplaintCard(props){
-    console.log('Complaint',props);
     const [upvotes,updateUpvotes]=useState(props.complaint.votes);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {

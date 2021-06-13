@@ -58,7 +58,6 @@ class Home extends Component{
             res_today:resCount.count,
             active:activeCount.count
         }
-        console.log(hoveredState,'Hovered state',stateCode);
         this.setState({isHovered:true,hoveredState:hoveredState});
     }
     mouseOut = () =>{

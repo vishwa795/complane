@@ -12,10 +12,6 @@ function LoginModal(props){
     const setUsernameForLogin = (username) => setUsernameLogin(username);
     const setPasswordForLogin = (password) => setPasswordLogin(password);
     const signIn = () =>{
-      console.log(JSON.stringify({
-        username:usernameLogin,
-        password:passwordLogin
-      }))
       fetch('http://localhost:4000/users/login',{
         method:'POST',
         body:JSON.stringify({
@@ -28,7 +24,6 @@ function LoginModal(props){
       })
       .then(res => res.json())
       .then(response => {
-        console.log(response);
         if(response.success){
           localStorage.setItem("accessToken",response.accessToken);
           props.loginUser(response.user);
