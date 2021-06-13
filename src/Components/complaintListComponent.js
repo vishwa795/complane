@@ -14,7 +14,7 @@ export default class ComplaintListComponent extends Component{
                 <NewComplaintComponent isUserLoggedIn={this.props.isUserLoggedIn} toggleLoginModal={this.props.toggleLoginModal} />
             <div >
                 
-                <ComplaintListCardComponent/>
+                <ComplaintListCardComponent />
             </div>
             </div>
         );
