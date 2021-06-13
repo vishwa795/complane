@@ -16,7 +16,7 @@ complaintRegister
 
 const url ="http://localhost:4000"
 
-export async function getAllComplaints(state, sort) {
+export async function getAllComplaints(state="ALL", sort) {
   return new Promise(async (resolve, reject)=>{
     try{
       const complaints = await  fetch(url + `/complaints?state=${state}&sort=${sort}`).then(res => res.json());
@@ -41,7 +41,7 @@ export function getAllComplaintsForUser(uid, sort) {
 }
 
 
-export function getAllActiveComplaints(state, sort) {
+export function getAllActiveComplaints(state="ALL", sort) {
   return new Promise(async (resolve, reject)=>{
     try{
       const activeComplaints = await fetch(url+`/complaints/active?state=${state}&sort=${sort}`).then(res => res.json());
@@ -53,7 +53,7 @@ export function getAllActiveComplaints(state, sort) {
   })
 }
 
-export function getAllNewComplaints(state, sort) {
+export function getAllNewComplaints(state="ALL", sort) {
   return new Promise(async (resolve, reject)=>{
     try{
       const newComplaints = await fetch(url + `/complaints/new?state=${state}&sort=${sort}`).then(res => res.json());
@@ -66,7 +66,7 @@ export function getAllNewComplaints(state, sort) {
     
 }
 
-export function getAllResolvedComplaints(state, sort) {
+export function getAllResolvedComplaints(state="ALL", sort) {
   return new Promise(async (resolve, reject)=>{
     try{
       const resolvedComplaints = await fetch(url + `/complaints/resolved?state=${state}&sort=${sort}`).then(res => res.json());
@@ -78,7 +78,7 @@ export function getAllResolvedComplaints(state, sort) {
   })
 }
 
-export function getAllNewResolvedComplaints(state) {
+export function getAllNewResolvedComplaints(state="ALL") {
   return new Promise(async (resolve, reject)=>{
     try{
       const newResolvedComplaints = await fetch(url +`/complaints/resolvedToday?state=${state}`).then(res => res.json())
@@ -90,7 +90,7 @@ export function getAllNewResolvedComplaints(state) {
   })
 }
 
-export async function getActiveComplaintCount(state) {
+export async function getActiveComplaintCount(state="ALL") {
   return new Promise(async (resolve, reject)=>{
     try{
       const activeComplaintsCount = await fetch(url + `/complaints/count/active?state=${state}`).then(res => res.json());
@@ -102,7 +102,7 @@ export async function getActiveComplaintCount(state) {
   })
 }
 
-export function getResolvedComplaintCount(state) {
+export function getResolvedComplaintCount(state="ALL") {
   return new Promise(async (resolve, reject)=>{
     try{
       const resolvedComplaintsCount = await fetch(url + `/complaints/count/resolved?state=${state}`).then(res => res.json());
@@ -115,7 +115,7 @@ export function getResolvedComplaintCount(state) {
     
 }
 
-export async function getActiveTodayComplaintCount(state) {
+export async function getActiveTodayComplaintCount(state="ALL") {
   return new Promise(async (resolve, reject)=>{
     try{
       const activeTodayComplaintCount = await fetch(url + `/complaints/count/active/today?state=${state}`).then(res => res.json());
@@ -127,7 +127,7 @@ export async function getActiveTodayComplaintCount(state) {
   })
 }
 
-export function getResolvedTodayComplaintCount(state) {
+export function getResolvedTodayComplaintCount(state="ALL") {
   return new Promise(async (resolve, reject)=>{
     try{
       const resolvedTodayComplaintCount = await fetch(url + `/complaints/count/resolved/today?state=${state}`).then(res => res.json())

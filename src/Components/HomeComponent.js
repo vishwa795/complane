@@ -15,27 +15,33 @@ class Home extends Component{
             hoveredState:null
         }
     }
+    setNewToday = (count) =>{
+        this.setState({new_today:count});
+    }
+    setResToday = (count) =>{
+        this.setState({res_today:count});
+    }
+    setActive = (count) =>{
+        this.setState({active:count});
+    }
     componentDidMount(){
         try{
-            getActiveTodayComplaintCount('ALL')
+            getActiveTodayComplaintCount()
             .then(activeToday => {
                 const count = activeToday.count;
-                console.log('Here is the count',count);
-                this.setState({new_today:count});
+                this.setNewToday(count);
             })
 
-            getActiveComplaintCount('ALL')
+            getActiveComplaintCount()
             .then(activeEveryday => {
                 const count = activeEveryday.count;
-                console.log("Everyday Count", count);
-                this.setState({active:count})
+                this.setActive(count);
             })
 
-            getResolvedTodayComplaintCount('ALL')
+            getResolvedTodayComplaintCount()
             .then(resolvedToday => {
                 const count = resolvedToday.count;
-                console.log("Resolved today count", count);
-                this.setState({res_today:count})
+                this.setResToday(count);
             })
 
         }
@@ -43,15 +49,21 @@ class Home extends Component{
             console.log(error);
         }
     }
-    changeOnHover = (stateCode) =>{
-        this.setState({
-            hoveredState:stateData[stateCode],
-            isHovered:true
-        });
+    changeOnHover = async (stateCode) =>{
+        const newCount = await getActiveTodayComplaintCount(stateCode);
+        const activeCount = await getActiveComplaintCount(stateCode);
+        const resCount = await getResolvedTodayComplaintCount(stateCode);
+        let hoveredState = {
+            new_today:newCount.count,
+            res_today:resCount.count,
+            active:activeCount.count
+        }
+        console.log(hoveredState,'Hovered state',stateCode);
+        this.setState({isHovered:true,hoveredState:hoveredState});
     }
     mouseOut = () =>{
         this.setState({
-            isHovered:!this.state.isHovered
+            isHovered:false
         })
     } 
     render(){
