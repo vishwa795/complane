@@ -4,6 +4,7 @@ import {Form,Button} from 'reactstrap';
 import {Col} from "reactstrap";
 import {state_list} from '../shared/state_list';
 import {postComplaintRegister} from '../API_calls/complaints';
+import dept_list from '../shared/dept_list';
 
 function NewComplaintFormComponent(props){
     
@@ -27,18 +28,27 @@ function NewComplaintFormComponent(props){
     const [title,setTitle] = useState();
     const [description,setDescription] = useState();
     
-   const submitComplaint = () =>{
+    
+    const[optionState,setOptionState]= useState();
+   
+
+    const submitComplaint = () =>{
        let complaintObject ={};
        complaintObject.title = title;
        complaintObject.desc = description;
        complaintObject.state = stateCode;
        complaintObject.district = result2.value;
-       alert(JSON.stringify(complaintObject));
+    //    alert(JSON.stringify(complaintObject));
+       setOptionState('Value_set')
    }
 
 
+   
+   
+
     return(
        <>
+        {console.log(optionState)}
         <Col id="modal_state_name" sm={6}>
            Please select your <b>State : </b>
         </Col>
@@ -80,9 +90,26 @@ function NewComplaintFormComponent(props){
                                 <label className="form-control-placeholder" for="description">Enter the <b>Description</b></label>
                             </div>
                             <div className="text-center">
-                                <Button color="primary" outline onClick={submitComplaint}>Submit</Button>{' '}
-                                <Button color="danger" outline onClick={props.toggle}>Cancel</Button>
+                                <Button color="primary" outline onClick={submitComplaint}>Continue</Button>{' '}
+                                {/* <Button color="danger" outline onClick={props.toggle}>Cancel</Button> */}
                             </div>
+                            {optionState?
+                            <>  
+                                <Col id="modal_dept_name" sm={12}>
+                                    <b>Department : </b>
+                                </Col>
+                                
+                                <Col sm={12}>
+                                    <b id="modal_dept_name_dropdown" ><Select options={dept_list}/></b>
+                                </Col>
+
+                                <br/>
+                                <div className="text-center">
+                                    <Button color="primary" outline onClick={submitComplaint}>Submit</Button>{' '}
+                                    <Button color="danger" outline onClick={props.toggle}>Cancel</Button>
+                                </div>
+                            </>:<p/>    
+                            }
                         </div>
                     </div>
                 </div>
