@@ -6,15 +6,42 @@ import {Link} from 'react-router-dom';
 import {state_list} from '../shared/state_list';
 import Select from 'react-select';
 import {Col} from "reactstrap";
+import {complaintsData} from "../shared/exampleData";
 
 
 
 export class ComplaintListCardComponent extends Component{
 
+
+    constructor(props){
+        super(props);
+        this.state={
+            data:complaintsData,
+
+        }
+    }
+    componentDidMount(){
+        // fetch('http://localhost:4000/complaints',{
+        //     method:'GET',
+        //     headers:{
+        //         "Access-Control-Allow-Origin":"*"
+        //     }
+        // })
+        // .then(res=>res.json())
+        // .then(complaints =>{
+        //     console.log('Here are the complaints ',complaints);
+        //     this.setState({data:complaints})
+        // }, error => console.log('Rejected',error.message))
+        // .catch(error => console.log(error.message))
+    }
+
+
+
     render(){
         let renderComplaints;
 
-        if(this.state.data.length >0){
+        if(this.state!=null && this.state.data.length >0){
+            
             renderComplaints = (
                 <>
                 <Col id="state_name_dropdown_col" className="container">
