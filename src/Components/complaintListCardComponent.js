@@ -1,6 +1,5 @@
 import React, {Component, useState} from 'react';
 import {Card,CardTitle, CardBody} from 'reactstrap';
-import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
@@ -11,27 +10,6 @@ import {Col} from "reactstrap";
 
 
 export class ComplaintListCardComponent extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            data:complaintsData,
-
-        }
-    }
-    componentDidMount(){
-        fetch('http://localhost:4000/complaints',{
-            method:'GET',
-            headers:{
-                "Access-Control-Allow-Origin":"*"
-            }
-        })
-        .then(res=>res.json())
-        .then(complaints =>{
-            console.log('Here are the complaints ',complaints);
-            this.setState({data:complaints})
-        }, error => console.log('Rejected',error.message))
-        .catch(error => console.log(error.message))
-    }
 
     render(){
         let renderComplaints;
@@ -74,7 +52,6 @@ export class ComplaintListCardComponent extends Component{
 }
 
 function ComplaintCard(props){
-    console.log('Complaint',props);
     const [upvotes,updateUpvotes]=useState(props.complaint.votes);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {
@@ -87,7 +64,7 @@ function ComplaintCard(props){
         setIsClicked(!isClicked);
     }
     return(
-        <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
+            <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
             <Card id="card">
             <CardBody>
             <CardTitle>

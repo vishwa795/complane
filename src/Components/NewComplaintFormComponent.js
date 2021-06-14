@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import Select from 'react-select';
-import {Form,InputGroup,Input,Button} from 'reactstrap';
+import {Form,Button} from 'reactstrap';
 import {Col} from "reactstrap";
 import {state_list} from '../shared/state_list';
 import {postComplaintRegister} from '../API_calls/complaints';
@@ -9,13 +9,13 @@ function NewComplaintFormComponent(props){
     
     
     const [result,TestingValue]=useState();
+
     
     const [stateCode,setStateCode] = useState();
 
     const TestingHandler = e =>{
         TestingValue(e.value);
         setStateCode(e.stateCode);
-        console.log(e);
     }
 
     const [result2,Testing] = useState(result);

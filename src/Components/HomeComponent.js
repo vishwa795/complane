@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import Typist from 'react-typist';
 import SvgComponent from './mapComponent';
-import {stateData} from '../shared/exampleData';
 import {getActiveTodayComplaintCount, getActiveComplaintCount, getResolvedTodayComplaintCount} from '../API_calls/complaints'
 
 class Home extends Component{
@@ -58,7 +56,6 @@ class Home extends Component{
             res_today:resCount.count,
             active:activeCount.count
         }
-        console.log(hoveredState,'Hovered state',stateCode);
         this.setState({isHovered:true,hoveredState:hoveredState});
     }
     mouseOut = () =>{

@@ -1,3 +1,5 @@
+/* THIS PAGE IS NOT REQUIRED */
+
 import React, {Component} from 'react';
 import {complaintsData} from "../shared/exampleData";
 import {Link} from 'react-router-dom';

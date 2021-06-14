@@ -3,10 +3,12 @@ import Header from './navComponent'
 import Home from './HomeComponent';
 import DetailedComplaint from './detailedComplaintComponent';
 import TrendingComplaints from './TrendingComplaints';
-import {complaintsData} from '../shared/exampleData';
 import {Route,Redirect,withRouter, Switch} from 'react-router-dom';
 import ComplaintListComponent from './complaintListComponent';
-import Wordcloud from './WordCloud';
+import {authorizeUser} from '../API_calls/user';
+import {getAllComplaints} from '../API_calls/complaints';
+
+
 class Main extends Component{
     constructor(props){
         super(props);
@@ -18,11 +20,11 @@ class Main extends Component{
             isForgotPassword:false,
 
             user:null,
-            isUserLoggedIn:true,
+            isUserLoggedIn:false,
             isUserLoading:false,
             userError:false,
 
-            complaintsData:null,
+            complaintsData:[],
             isComplaintsLoading:true,
             complaintsError:false,
 
@@ -53,23 +55,24 @@ class Main extends Component{
     toggleLoginContent = () => this.setState({isLogin:!this.state.isLogin});
     toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
     toggleForgotPasswordContent = () => this.setState({isForgotPassword:!this.state.isForgotPassword});
-
+    setComplaints = async () => {
+        const complaints = await getAllComplaints();
+        this.setState({complaintsData:complaints,isComplaintsLoading:false});
+    }
+    loginUser = (user) => {
+        this.setState({user:user,isUserLoggedIn:true});
+    }
+    logoutUser = () => {
+        this.setState({isUserLoggedIn:false,user:null});
+        localStorage.removeItem('accessToken');
+    }
     componentDidMount(){
         const accessToken = localStorage.getItem('accessToken');
         if(accessToken){
-            fetch('http://localhost:4000/users/authorize',{
-                method:'GET',
-                mode:'no-cors',
-                headers:{'Content-Type':'application/json',
-            'Authorization':'Bearer '+accessToken}
-            })
-            .then(res => res.json())
-            .then(user => {
-                this.setState({user:user,isUserLoading:false,isUserLoggedIn:true});
-            },error => console.log(error.message))
-            .catch(error => console.log(error.message));
+            authorizeUser(accessToken,this.loginUser);
         }
         this.setState({isComplaintsLoading:true});
+        this.setComplaints();
     }
 
     render(){
@@ -83,12 +86,13 @@ class Main extends Component{
             <div className="Main">
                 <Header isNavOpen={this.state.isNavOpen} togglenav={this.togglenav} isModalOpen={this.state.isModalOpen} toggle={this.toggle}
                  isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent}
-                  isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent} />
+                  isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent}
+                  loginUser={this.loginUser} logoutUser={this.logoutUser} />
                   
                     <Switch location={this.props.location}>
                         <Route path="/home" component={Home} />
-                        <Route exact path="/complaints" component={() => <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} />} />
-                        <Route path="/complaints/:complaintID" component={DetailedComplaintLocal} />
+                        <Route exact path="/complaints" component={() =>  <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} complaints={this.state.complaintsData} />} />
+                        <Route path="/complaints/:complaintID" component={(props) => this.state.isComplaintsLoading?<div>Loading</div>  :  <DetailedComplaintLocal {...props} />} />
                         <Route path="/trendingcomplaints" name="trendingcomplaints" render={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
                         {/* <Route path="/wordcloud" name="wordcloud" render={props => <Wordcloud {...props} Wordcloud={this.state.Wordcloud} />} /> */}
                         
