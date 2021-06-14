@@ -34,14 +34,12 @@ function NewComplaintFormComponent(props){
    
 
     const submitComplaint = () =>{
-       let complaintObject ={};
-       complaintObject.title = title;
-       complaintObject.desc = description;
-       complaintObject.state = stateCode;
-       complaintObject.district = result2.value;
-    //    alert(JSON.stringify(complaintObject));
-       
-       setOptionState('Value_set')
+        complaintObject.title = title;
+        complaintObject.desc = description;
+        complaintObject.state = stateCode;
+        complaintObject.district = result2.value;
+        complaintObject.deptName = optionState;
+        postComplaintRegister(complaintObject)
    }
 
    const continueComplaint = () =>{
@@ -50,9 +48,9 @@ function NewComplaintFormComponent(props){
     complaintObject.desc = description;
     complaintObject.state = stateCode;
     complaintObject.district = result2.value;
-    getDepartmentForComplaints(complaintObject.desc);
+    const deptName = getDepartmentForComplaints(complaintObject.desc);
  //    alert(JSON.stringify(complaintObject));
-    setOptionState('Value_set')
+    setOptionState(deptName)
 }
 
    
