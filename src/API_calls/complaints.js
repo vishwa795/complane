@@ -155,7 +155,7 @@ export async function postComplaintRegister(complaintObject) {
   })
 }
 
-export function getAllComplaintsForUser(complaint) {
+export function getDepartmentForComplaints(complaint) {
   return new Promise(async (resolve, reject)=>{
     try{
       const userComplaintsDepartment = await fetch(FlaskUrl + `/fastText`, {

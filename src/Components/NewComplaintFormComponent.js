@@ -3,8 +3,9 @@ import Select from 'react-select';
 import {Form,Button} from 'reactstrap';
 import {Col} from "reactstrap";
 import {state_list} from '../shared/state_list';
-import {postComplaintRegister} from '../API_calls/complaints';
 import dept_list from '../shared/dept_list';
+
+import {postComplaintRegister, getDepartmentForComplaints} from '../API_calls/complaints'
 
 function NewComplaintFormComponent(props){
     
@@ -39,6 +40,7 @@ function NewComplaintFormComponent(props){
        complaintObject.state = stateCode;
        complaintObject.district = result2.value;
     //    alert(JSON.stringify(complaintObject));
+       
        setOptionState('Value_set')
    }
 
