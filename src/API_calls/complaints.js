@@ -15,6 +15,7 @@ complaintRegister
 */
 
 const url ="http://localhost:4000"
+const FlaskUrl = "http://localhost:5000"
 
 export async function getAllComplaints(state="ALL", sort) {
   return new Promise(async (resolve, reject)=>{
@@ -152,4 +153,19 @@ export async function postComplaintRegister(complaintObject) {
       reject(error);
     }
   })
+}
+
+export function getAllComplaintsForUser(complaint) {
+  return new Promise(async (resolve, reject)=>{
+    try{
+      const userComplaintsDepartment = await fetch(FlaskUrl + `/fastText`, {
+        method:"POST",
+        body:JSON.stringify({complaint: complaint})
+      }).then(res => res.json())
+      resolve(userComplaints);
+    }
+    catch(error){
+      reject(error)
+    }
+  }) 
 }
