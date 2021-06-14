@@ -1,55 +1,22 @@
 import React, {Component, useState} from 'react';
 import {Card,CardTitle, CardBody} from 'reactstrap';
-import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
 import { state_list } from '../shared/state_list';
 
-
 export class ComplaintListCardComponent extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            data:complaintsData,
-
-        }
-    }
-    componentDidMount(){
-        fetch('http://localhost:4000/complaints',{
-            method:'GET',
-            headers:{
-                "Access-Control-Allow-Origin":"*"
-            }
-        })
-        .then(res=>res.json())
-        .then(complaints =>{
-            console.log('Here are the complaints ',complaints);
-            this.setState({data:complaints})
-        }, error => console.log('Rejected',error.message))
-        .catch(error => console.log(error.message))
-    }
 
     render(){
         let renderComplaints;
+        if(this.props.complaints.length >0){
+            renderComplaints = this.props.complaints.map((c) =>{
+                  return(
+                  <ComplaintCard complaint={c} />
+                )
+              })
 
-        if(this.state.data.length > 0){
-            renderComplaints = (
-                <>
-                <div id="state_name_dropdown_main_div" className="container">    
-                    <b id="state_name_dropdown_main"><Select options={state_list} placeholder="To get state-wise complaints, select the State... "/></b>
-                </div> 
-                <div className="row">
-                {this.state.data.map((c) =>{
-                    console.log(c);
-                      return(
-                      <ComplaintCard complaint={c} />
-                    )
-                  })}
-                  </div>
-                </>
-            )
         }
         else{
             renderComplaints = (
@@ -72,7 +39,6 @@ export class ComplaintListCardComponent extends Component{
 }
 
 function ComplaintCard(props){
-    console.log('Complaint',props);
     const [upvotes,updateUpvotes]=useState(props.complaint.votes);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {

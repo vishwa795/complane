@@ -1,9 +1,41 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Modal,ModalBody,Form,FormGroup,Label,Input,Button,Col,Row} from 'reactstrap';
 function LoginModal(props){
     let content;
+    const [usernameLogin,setUsernameLogin] = useState();
+    const [passwordLogin,setPasswordLogin] = useState();
+
+    const [usernameSignup,setUsernameSignup] = useState();
+    const [passwordSignup,setPasswordSignup] = useState();
+    const [confirmPasswordSignup,setConfirmPasswordSignup] = useState();
+
+    const setUsernameForLogin = (username) => setUsernameLogin(username);
+    const setPasswordForLogin = (password) => setPasswordLogin(password);
+    const signIn = () =>{
+      fetch('http://localhost:4000/users/login',{
+        method:'POST',
+        body:JSON.stringify({
+          username:usernameLogin,
+          password:passwordLogin
+        }),
+        headers:{
+          "Content-Type":"application/json"
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        if(response.success){
+          localStorage.setItem("accessToken",response.accessToken);
+          props.loginUser(response.user);
+        }
+      })
+      .catch(error => console.log(error));
+    }
+
     if(props.isLogin){
-        content = <Login toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} toggleForgotPasswordContent ={props.toggleForgotPasswordContent}/> //TODO provide the methods created in navComponent.
+        content = <Login toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} 
+        toggleForgotPasswordContent ={props.toggleForgotPasswordContent} signIn={signIn} username={usernameLogin} password={passwordLogin} 
+        setUsername={setUsernameForLogin} setPassword={setPasswordForLogin} /> 
     }
     else if(props.isSignup){
         content = <Signup toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} />
@@ -28,11 +60,11 @@ function Login(props){
                         <Form>
                           <FormGroup>
                             <Label for="username">Username</Label>
-                            <Input type="email" name="username" id="username" placeholder="Enter your username here"/>
+                            <Input type="email" name="username" id="username" value={props.username} onChange={(event)=>props.setUsername(event.target.value)} placeholder="Enter your username here"/>
                           </FormGroup>
                           <FormGroup>
                             <Label for="password">Password</Label>
-                            <Input type="password" name="password" id="password" placeholder="Enter your password here"/>
+                            <Input type="password" name="password" id="password" value={props.password} onChange={(event)=>props.setPassword(event.target.value)} placeholder="Enter your password here"/>
                           </FormGroup>
                           <div className="d-flex justify-content-end">
                             <a href="#" onClick={() => {
@@ -42,7 +74,7 @@ function Login(props){
                           </div>
                           <br />
                           <FormGroup className="d-flex justify-content-center">
-                            <Button name="login" className="login-button bg-success">Log In <span className="fa fa-md fa-arrow-right " /></Button>
+                            <Button name="login" className="login-button bg-success" onClick={props.signIn} >Log In <span className="fa fa-md fa-arrow-right " /></Button>
                           </FormGroup>
                           <div className="d-flex justify-content-center">
                             <span>Don't have an account? <a href="#" onClick={() => {

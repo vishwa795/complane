@@ -4,7 +4,6 @@ import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,Form,FormGroup,Inp
   import LoginModal from './LogInComponent';
 class Header extends Component{
     render(){
-      console.log('Here in header',this.props);
         return(
     <div>
       <Navbar className="navbar-dark" dark expand="lg" id="sidebar" >
@@ -45,7 +44,9 @@ class Header extends Component{
         </Collapse>
         </div>
       </Navbar>
-      <LoginModal isModalOpen={this.props.isModalOpen} toggle={this.props.toggle} isLogin={this.props.isLogin} toggleLoginContent={this.props.toggleLoginContent} isSignup={this.props.isSignup} toggleSignupContent={this.props.toggleSignupContent} isForgotPassword={this.props.isForgotPassword} toggleForgotPasswordContent={this.props.toggleForgotPasswordContent} />
+      <LoginModal isModalOpen={this.props.isModalOpen} toggle={this.props.toggle} isLogin={this.props.isLogin} toggleLoginContent={this.props.toggleLoginContent}
+       isSignup={this.props.isSignup} toggleSignupContent={this.props.toggleSignupContent} isForgotPassword={this.props.isForgotPassword}
+        toggleForgotPasswordContent={this.props.toggleForgotPasswordContent} loginUser={this.props.loginUser} />
       
       </div>
       
