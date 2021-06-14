@@ -21,18 +21,18 @@ export class ComplaintListCardComponent extends Component{
         }
     }
     componentDidMount(){
-        // fetch('http://localhost:4000/complaints',{
-        //     method:'GET',
-        //     headers:{
-        //         "Access-Control-Allow-Origin":"*"
-        //     }
-        // })
-        // .then(res=>res.json())
-        // .then(complaints =>{
-        //     console.log('Here are the complaints ',complaints);
-        //     this.setState({data:complaints})
-        // }, error => console.log('Rejected',error.message))
-        // .catch(error => console.log(error.message))
+        fetch('http://localhost:4000/complaints',{
+            method:'GET',
+            headers:{
+                "Access-Control-Allow-Origin":"*"
+            }
+        })
+        .then(res=>res.json())
+        .then(complaints =>{
+            console.log('Here are the complaints ',complaints);
+            this.setState({data:complaints})
+        }, error => console.log('Rejected',error.message))
+        .catch(error => console.log(error.message))
     }
 
 
