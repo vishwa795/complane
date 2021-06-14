@@ -4,7 +4,9 @@ import {complaintsData} from "../shared/exampleData";
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
-
+import {state_list} from '../shared/state_list';
+import Select from 'react-select';
+import {Col} from "reactstrap";
 
 
 
@@ -35,12 +37,21 @@ export class ComplaintListCardComponent extends Component{
         let renderComplaints;
 
         if(this.state.data.length >0){
-            renderComplaints = this.state.data.map((c) =>{
+            renderComplaints = (
+                <>
+                <Col id="state_name_dropdown_col" className="container">
+                    <b id="state_name_dropdown" ><Select options={state_list} placeholder="To get state-wise complaints, select State..."/></b>
+                </Col> 
+                <div className="row">
+                {this.state.data.map((c) =>{
                 console.log(c);
                   return(
                   <ComplaintCard complaint={c} />
                 )
-              })
+              })}
+              </div>
+              </>
+            )  
         }
         else{
             renderComplaints = (
@@ -54,9 +65,9 @@ export class ComplaintListCardComponent extends Component{
     
 
     return(
-        <div className="row">
+        <>
         {renderComplaints}
-        </div>
+        </>
     );
     }
 

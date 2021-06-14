@@ -5,29 +5,8 @@ import Select from 'react-select';
 import {Col} from "reactstrap";
 import WordCloudCards from './WordCloudCards';
 
+import dept_list from '../shared/dept_list'
 
-const deptlist= [
-    {
-        label:"Dept1",
-        value:"Dept1"
-    },
-    {
-        label:"Dept2",
-        value:"Dept2"
-    },
-    {
-        label:"Dept3",
-        value:"Dept3"
-    },
-    {
-        label:"Dept4",
-        value:"Dept4"
-    },
-    {
-        label:"Dept5",
-        value:"Dept5"
-    }
-]
 
 const TrendingComplaints = (props) => {
     
@@ -42,7 +21,7 @@ const TrendingComplaints = (props) => {
                             <h4>Please select the desired <b>Department : </b></h4>
                         </Col>
                         <Col sm={12}>
-                            <b id="dept_list_dropdown" color="black" style={{color:"#4c4c4c", width:"100%", textAlign:"left"}} ><Select options={deptlist}/></b>
+                            <b id="dept_list_dropdown" color="black" style={{color:"#4c4c4c", width:"100%", textAlign:"left"}} ><Select options={dept_list}/></b>
                         </Col>
                     </div>
                     <div className="col-md-3"></div>

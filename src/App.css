@@ -302,3 +302,11 @@ textarea#description{
 #wordcloudcardtitle{
   font-size:"150%";
 }
+
+#state_name_dropdown_col{
+  width:500px;
+}
+
+#state_name_dropdown{
+  color:#4c4c4c; 
+}
