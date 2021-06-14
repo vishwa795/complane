@@ -44,6 +44,16 @@ function NewComplaintFormComponent(props){
        setOptionState('Value_set')
    }
 
+   const continueComplaint = () =>{
+    let complaintObject ={};
+    complaintObject.title = title;
+    complaintObject.desc = description;
+    complaintObject.state = stateCode;
+    complaintObject.district = result2.value;
+    getDepartmentForComplaints(complaintObject.desc);
+ //    alert(JSON.stringify(complaintObject));
+    setOptionState('Value_set')
+}
 
    
    
@@ -92,7 +102,7 @@ function NewComplaintFormComponent(props){
                                 <label className="form-control-placeholder" for="description">Enter the <b>Description</b></label>
                             </div>
                             <div className="text-center">
-                                <Button color="primary" outline onClick={submitComplaint}>Continue</Button>{' '}
+                                <Button color="primary" outline onClick={continueComplaint}>Continue</Button>{' '}
                                 {/* <Button color="danger" outline onClick={props.toggle}>Cancel</Button> */}
                             </div>
                             {optionState?
