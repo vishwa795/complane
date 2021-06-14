@@ -34,21 +34,23 @@ function NewComplaintFormComponent(props){
    
 
     const submitComplaint = () =>{
+        let complaintObject ={};
         complaintObject.title = title;
         complaintObject.desc = description;
         complaintObject.state = stateCode;
         complaintObject.district = result2.value;
         complaintObject.deptName = optionState;
+        console.log(complaintObject)
         postComplaintRegister(complaintObject)
    }
 
-   const continueComplaint = () =>{
+   const continueComplaint = async () =>{
     let complaintObject ={};
     complaintObject.title = title;
     complaintObject.desc = description;
     complaintObject.state = stateCode;
     complaintObject.district = result2.value;
-    const deptName = getDepartmentForComplaints(complaintObject.desc);
+    const deptName = getDepartmentForComplaints(complaintObject.desc)
  //    alert(JSON.stringify(complaintObject));
     setOptionState(deptName)
 }

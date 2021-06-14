@@ -158,11 +158,11 @@ export async function postComplaintRegister(complaintObject) {
 export function getDepartmentForComplaints(complaint) {
   return new Promise(async (resolve, reject)=>{
     try{
-      const userComplaintsDepartment = await fetch(FlaskUrl + `/fastText`, {
+      const userComplaintsDepartment = await fetch(url + `/complaints/fastText`, {
         method:"POST",
         body:JSON.stringify({complaint: complaint})
       }).then(res => res.json())
-      resolve(userComplaints);
+      resolve(userComplaintsDepartment);
     }
     catch(error){
       reject(error)
