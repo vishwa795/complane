@@ -3,8 +3,8 @@ import {Card,CardTitle, CardBody} from 'reactstrap';
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
-
-
+import Select from 'react-select';
+import { state_list } from '../shared/state_list';
 
 export class ComplaintListCardComponent extends Component{
 
@@ -16,6 +16,7 @@ export class ComplaintListCardComponent extends Component{
                   <ComplaintCard complaint={c} />
                 )
               })
+
         }
         else{
             renderComplaints = (
@@ -29,7 +30,7 @@ export class ComplaintListCardComponent extends Component{
     
 
     return(
-        <div className="row">
+        <div>
         {renderComplaints}
         </div>
     );
@@ -50,7 +51,7 @@ function ComplaintCard(props){
         setIsClicked(!isClicked);
     }
     return(
-        <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
+            <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
             <Card id="card">
             <CardBody>
             <CardTitle>

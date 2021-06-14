@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import { ComplaintListCardComponent } from './complaintListCardComponent';
 import NewComplaintComponent from './NewComplaintComponent';
 
+
 //Like Quora's homepage
 //cardComponent
 //modal with title and desc - https://reactstrap.github.io/components/modals/
 
 export default class ComplaintListComponent extends Component{
+    
     render(){
         return(
             <div id="complaint_list_page">
@@ -14,8 +16,10 @@ export default class ComplaintListComponent extends Component{
             <div >
                 
                 <ComplaintListCardComponent complaints={this.props.complaints} />
+
             </div>
             </div>
         );
     }
 }
+
