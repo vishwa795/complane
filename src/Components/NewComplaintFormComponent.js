@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import Select from 'react-select';
 import {Form,Button} from 'reactstrap';
-import {Col} from "reactstrap";
+import {Col,Spinner} from "reactstrap";
 import {state_list} from '../shared/state_list';
 import dept_list from '../shared/dept_list';
 
@@ -22,6 +22,7 @@ function NewComplaintFormComponent(props){
 
     const [result2,Testing] = useState(result);
     const TestingHandler2 = e =>{
+        console.log('React Select ',e);
         Testing(e);
     }
 
@@ -32,6 +33,9 @@ function NewComplaintFormComponent(props){
     
     const[optionState,setOptionState]= useState();
    
+    const deptHandler = (dept) => {
+        setOptionState(dept);
+    }
 
     const submitComplaint = () =>{
         let complaintObject ={};
@@ -39,20 +43,33 @@ function NewComplaintFormComponent(props){
         complaintObject.desc = description;
         complaintObject.state = stateCode;
         complaintObject.district = result2.value;
-        complaintObject.deptName = optionState;
+        complaintObject.deptName = optionState.value;
         console.log(complaintObject)
         postComplaintRegister(complaintObject)
    }
 
    const continueComplaint = async () =>{
-    let complaintObject ={};
-    complaintObject.title = title;
-    complaintObject.desc = description;
-    complaintObject.state = stateCode;
-    complaintObject.district = result2.value;
-    const deptName = getDepartmentForComplaints(complaintObject.desc)
- //    alert(JSON.stringify(complaintObject));
-    setOptionState(deptName)
+    try{
+        let complaintObject ={};
+        complaintObject.title = title;
+        complaintObject.desc = description;
+        complaintObject.state = stateCode;
+        complaintObject.district = result2.value;
+        const dept = await getDepartmentForComplaints(complaintObject.title+" "+complaintObject.desc);
+        const deptName = dept.department_predicted;
+        console.log(deptName);
+        const deptObject = {
+            label:deptName,
+            value:deptName
+        }
+        //    alert(JSON.stringify(complaintObject));
+
+        setOptionState(deptObject);
+        console.log(deptName);
+    }
+    catch(error){
+        console.log(error);
+    }
 }
 
    
@@ -81,7 +98,7 @@ function NewComplaintFormComponent(props){
 
                 <Col>
                     <b id="modal_district_name_dropdown">
-                        <Select options={result}onChange={TestingHandler2} />
+                        <Select options={result} onChange={TestingHandler2} />
                     </b>
                 </Col>
                 {result2?<>
@@ -112,7 +129,7 @@ function NewComplaintFormComponent(props){
                                 </Col>
                                 
                                 <Col sm={12}>
-                                    <b id="modal_dept_name_dropdown" ><Select options={dept_list}/></b>
+                                    <b id="modal_dept_name_dropdown" ><Select options={dept_list} onChange={deptHandler} value={optionState} /></b>
                                 </Col>
 
                                 <br/>
@@ -120,7 +137,8 @@ function NewComplaintFormComponent(props){
                                     <Button color="primary" outline onClick={submitComplaint}>Submit</Button>{' '}
                                     <Button color="danger" outline onClick={props.toggle}>Cancel</Button>
                                 </div>
-                            </>:<p/>    
+                            </>:
+                            <Spinner />
                             }
                         </div>
                     </div>

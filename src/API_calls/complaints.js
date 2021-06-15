@@ -143,9 +143,14 @@ export function getResolvedTodayComplaintCount(state="ALL") {
 export async function postComplaintRegister(complaintObject) {
   return new Promise(async (resolve, reject)=>{
     try{
+      const accessToken = localStorage.getItem('accessToken');
       const complaintRegister = await fetch(url + '/complaints/register',{
         method:"POST",
-        body:JSON.stringify(complaintObject)
+        body:JSON.stringify(complaintObject),
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer "+accessToken
+        }
       }).then(res => res.json())
       resolve(complaintRegister);
     }
@@ -160,7 +165,10 @@ export function getDepartmentForComplaints(complaint) {
     try{
       const userComplaintsDepartment = await fetch(url + `/complaints/fastText`, {
         method:"POST",
-        body:JSON.stringify({complaint: complaint})
+        body:JSON.stringify({complaint: complaint}),
+        headers:{
+          "Content-Type":"application/json"
+        }
       }).then(res => res.json())
       resolve(userComplaintsDepartment);
     }
