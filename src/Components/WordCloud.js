@@ -5,7 +5,7 @@ const Wordcloud = (props) => (
     <TagCloud
       minSize={12}
       maxSize={35}
-      tags={props.Wordcloud.cloud}
+      tags={props.keywords}
       //onClick={tag => alert(`'${tag.value}' was selected!`)}
     />
   )
