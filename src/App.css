@@ -9,6 +9,9 @@ body{
   width: 10px;
 }
 
+.card-bg{
+  min-height: 100vh;
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -304,11 +307,12 @@ textarea#description{
 }
 
 #state_name_dropdown_col{
-  width:500px;
+  width:30%;
+  color:#4c4c4c;
 }
 
 #state_name_dropdown{
-  color:#4c4c4c; 
+  color:#4c4c4c;
 }
 
 

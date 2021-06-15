@@ -38,9 +38,15 @@ class Header extends Component{
                     <Button outline color="primary" id="searchButton" className="m-1 ml-auto mb-auto" ><span className="fa fa-lg fa-search " /> Search </Button>
                 </FormGroup>
             </Form>
+            {this.props.isUserLoggedIn?
+            <span>
+              <Button outline color="danger" id="login-button" onClick={this.props.logoutUser} ><span className="fa fa-lg fa-sign-out " /> LogOut </Button>
+            </span>
+            :
             <span>
               <Button outline color="success" id="login-button" onClick={this.props.toggle} ><span className="fa fa-lg fa-sign-in " /> Login </Button>
             </span>
+            }
         </Collapse>
         </div>
       </Navbar>

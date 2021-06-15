@@ -11,7 +11,7 @@ function NewComplaintFormComponent(props){
     
     
     const [result,TestingValue]=useState();
-
+    const [isDeptLoading,setIsDeptLoading] = useState(false);
     
     const [stateCode,setStateCode] = useState();
 
@@ -45,11 +45,12 @@ function NewComplaintFormComponent(props){
         complaintObject.district = result2.value;
         complaintObject.deptName = optionState.value;
         console.log(complaintObject)
-        postComplaintRegister(complaintObject)
+        postComplaintRegister(complaintObject);
    }
 
    const continueComplaint = async () =>{
     try{
+        setIsDeptLoading(true);
         let complaintObject ={};
         complaintObject.title = title;
         complaintObject.desc = description;
@@ -65,9 +66,11 @@ function NewComplaintFormComponent(props){
         //    alert(JSON.stringify(complaintObject));
 
         setOptionState(deptObject);
+        setIsDeptLoading(false);
         console.log(deptName);
     }
     catch(error){
+        setIsDeptLoading(false);
         console.log(error);
     }
 }
@@ -119,10 +122,14 @@ function NewComplaintFormComponent(props){
                                 <label className="form-control-placeholder" for="description">Enter the <b>Description</b></label>
                             </div>
                             <div className="text-center">
-                                <Button color="primary" outline onClick={continueComplaint}>Continue</Button>{' '}
+                                {isDeptLoading?
+                                <Spinner color="primary" />
+                                :
+                                <Button color="primary" outline onClick={continueComplaint}>Continue</Button>
+                                }
                                 {/* <Button color="danger" outline onClick={props.toggle}>Cancel</Button> */}
                             </div>
-                            {optionState?
+                            {optionState&&
                             <>  
                                 <Col id="modal_dept_name" sm={12}>
                                     <b>Department : </b>
@@ -137,8 +144,7 @@ function NewComplaintFormComponent(props){
                                     <Button color="primary" outline onClick={submitComplaint}>Submit</Button>{' '}
                                     <Button color="danger" outline onClick={props.toggle}>Cancel</Button>
                                 </div>
-                            </>:
-                            <Spinner />
+                            </>
                             }
                         </div>
                     </div>

@@ -6,26 +6,49 @@ import {Link} from 'react-router-dom';
 import {state_list} from '../shared/state_list';
 import Select from 'react-select';
 import {Col} from "reactstrap";
+import {getAllComplaints} from '../API_calls/complaints';
 import {complaintsData} from "../shared/exampleData";
 
 
 
 export class ComplaintListCardComponent extends Component{
-
+    constructor(props){
+        super(props);
+        this.state = {
+            complaints:[],
+            stateList:[{label:'ALL',value:'ALL'}].concat(state_list),
+            selectedState:{label:'ALL',value:'ALL'}
+        }
+    }
+    async componentDidMount(){
+        const complaints = await getAllComplaints();
+        this.setState({complaints:complaints}); 
+    }
+    setComplaints = async (state="ALL") =>{
+        const complaints = await getAllComplaints(state);
+        this.setState({complaints:complaints});
+    }
+    stateSelect = (option) =>{
+        if(option.stateCode){
+            this.setComplaints(option.stateCode);
+            console.log("Has StateCode");
+            this.setState({selectedState:option},()=>console.log(this.state));
+        }
+        else{
+            this.setState({selectedState:{label:'ALL',value:'ALL'}});
+            this.setComplaints();
+        }
+    }
 
     render(){
         let renderComplaints;
 
-        if(this.props.complaints.length >0){
+        if(this.state.complaints.length >0){
             
             renderComplaints = (
                 <>
-                <Col id="state_name_dropdown_col" className="container">
-                    <b id="state_name_dropdown" ><Select options={state_list} placeholder="To get state-wise complaints, select State..."/></b>
-                </Col> 
                 <div className="row">
-                {this.props.complaints.map((c) =>{
-                console.log(c);
+                {this.state.complaints.map((c) =>{
                   return(
                   <ComplaintCard complaint={c} />
                 )
@@ -37,7 +60,7 @@ export class ComplaintListCardComponent extends Component{
         else{
             renderComplaints = (
                 <div className="container">
-                    <div className="text-center">
+                    <div className="text-center mt-3">
                         <h2>No Complaints Found</h2>
                     </div>
                 </div>
@@ -46,9 +69,18 @@ export class ComplaintListCardComponent extends Component{
     
 
     return(
-        <>
-        {renderComplaints}
-        </>
+        <div className="card-bg">
+            <div id="state_name_dropdown_col" className="container">
+                <b>
+                    <span className="text-primary">Filter</span>
+                    <Select options={this.state.stateList} value={this.state.selectedState} 
+                    onChange={this.stateSelect} minMenuHeight="300" placeholder="Select State..."/>
+                </b>
+            </div> 
+            <div>
+            {renderComplaints}
+            </div>
+        </div>
     );
     }
 

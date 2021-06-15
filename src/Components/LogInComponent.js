@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Modal,ModalBody,Form,FormGroup,Label,Input,Button,Col,Row} from 'reactstrap';
+import { store } from 'react-notifications-component';
 function LoginModal(props){
     let content;
     const [usernameLogin,setUsernameLogin] = useState();
@@ -12,6 +13,7 @@ function LoginModal(props){
     const setUsernameForLogin = (username) => setUsernameLogin(username);
     const setPasswordForLogin = (password) => setPasswordLogin(password);
     const signIn = () =>{
+      console.log('COming heer');
       fetch('http://localhost:4000/users/login',{
         method:'POST',
         body:JSON.stringify({
@@ -25,11 +27,54 @@ function LoginModal(props){
       .then(res => res.json())
       .then(response => {
         if(response.success){
+          console.log("coming here also");
           localStorage.setItem("accessToken",response.accessToken);
+          store.addNotification({
+            title: "Login SuccessFull",
+            message: "You have Successfully Logged in!",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
           props.loginUser(response.user);
+          props.toggle();
         }
+      },(error)=>{
+        store.addNotification({
+          title: "Login UnuccessFull",
+          message: error.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
       })
-      .catch(error => console.log(error));
+      .catch(error =>{
+        store.addNotification({
+          title: "Login UnuccessFull",
+          message: error.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+      });
     }
 
     if(props.isLogin){

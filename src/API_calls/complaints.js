@@ -1,3 +1,4 @@
+import { store } from 'react-notifications-component';
 /*
 List of constants in this script : 
 
@@ -152,9 +153,35 @@ export async function postComplaintRegister(complaintObject) {
           "Authorization":"Bearer "+accessToken
         }
       }).then(res => res.json())
+      store.addNotification({
+        title: "Complaint Registered",
+        message: "Your Complaint has been registered Successfully",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
       resolve(complaintRegister);
     }
     catch(error){
+      store.addNotification({
+        title: "Complaint Could not be Registered",
+        message: "Your Complaint could not be registered. Please try again later",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
       reject(error);
     }
   })

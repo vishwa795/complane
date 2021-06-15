@@ -9,13 +9,15 @@ import NewComplaintComponent from './NewComplaintComponent';
 
 export default class ComplaintListComponent extends Component{
     
+
     render(){
+
         return(
             <div id="complaint_list_page">
                 <NewComplaintComponent isUserLoggedIn={this.props.isUserLoggedIn} toggleLoginModal={this.props.toggleLoginModal} />
             <div >
                 
-                <ComplaintListCardComponent complaints={this.props.complaints} />
+                <ComplaintListCardComponent />
 
             </div>
             </div>

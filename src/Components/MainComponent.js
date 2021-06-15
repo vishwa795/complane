@@ -20,7 +20,7 @@ class Main extends Component{
             isForgotPassword:false,
 
             user:null,
-            isUserLoggedIn:true,
+            isUserLoggedIn:false,
             isUserLoading:false,
             userError:false,
 
@@ -55,8 +55,8 @@ class Main extends Component{
     toggleLoginContent = () => this.setState({isLogin:!this.state.isLogin});
     toggleSignupContent =() => this.setState({isSignup:!this.state.isSignup});
     toggleForgotPasswordContent = () => this.setState({isForgotPassword:!this.state.isForgotPassword});
-    setComplaints = async () => {
-        const complaints = await getAllComplaints();
+    setComplaints = async (state="ALL") => {
+        const complaints = await getAllComplaints(state);
         this.setState({complaintsData:complaints,isComplaintsLoading:false});
     }
     loginUser = (user) => {
@@ -87,11 +87,11 @@ class Main extends Component{
                 <Header isNavOpen={this.state.isNavOpen} togglenav={this.togglenav} isModalOpen={this.state.isModalOpen} toggle={this.toggle}
                  isLogin={this.state.isLogin} toggleLoginContent={this.toggleLoginContent} isSignup={this.state.isSignup} toggleSignupContent={this.toggleSignupContent}
                   isForgotPassword={this.state.isForgotPassword} toggleForgotPasswordContent={this.toggleForgotPasswordContent}
-                  loginUser={this.loginUser} logoutUser={this.logoutUser} />
+                  loginUser={this.loginUser} logoutUser={this.logoutUser} isUserLoggedIn={this.state.isUserLoggedIn} />
                   
                     <Switch location={this.props.location}>
                         <Route path="/home" component={Home} />
-                        <Route exact path="/complaints" component={() =>  <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} complaints={this.state.complaintsData} />} />
+                        <Route exact path="/complaints" component={(props) =>  <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} complaints={this.state.complaintsData} setComplaints={this.setComplaints} />} />
                         <Route path="/complaints/:complaintID" component={(props) => this.state.isComplaintsLoading?<div>Loading</div>  :  <DetailedComplaintLocal {...props} />} />
                         <Route path="/trendingcomplaints" name="trendingcomplaints" render={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
                         {/* <Route path="/wordcloud" name="wordcloud" render={props => <Wordcloud {...props} Wordcloud={this.state.Wordcloud} />} /> */}
