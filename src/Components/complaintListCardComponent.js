@@ -55,7 +55,7 @@ export class ComplaintListCardComponent extends Component{
 }
 
 function ComplaintCard(props){
-    const [upvotes,updateUpvotes]=useState(props.complaint.votes);
+    const [upvotes,updateUpvotes]=useState(props.complaint.votes.length);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {
         if(isClicked){
