@@ -6,7 +6,9 @@ import TrendingComplaints from './TrendingComplaints';
 import {Route,Redirect,withRouter, Switch} from 'react-router-dom';
 import ComplaintListComponent from './complaintListComponent';
 import {authorizeUser} from '../API_calls/user';
-import {getAllComplaints} from '../API_calls/complaints';
+import {getAllComplaints, getAllTrendingComplaints} from '../API_calls/complaints';
+import TrendingTopicsComplaintsPage from './TrendingTopicsComplaintsPage';
+
 
 
 class Main extends Component{
@@ -75,6 +77,12 @@ class Main extends Component{
         this.setComplaints();
     }
 
+    async setTrendingComplaints(topicId){
+        this.setState({isComplaintsLoading:true})
+        const complaints = await getAllTrendingComplaints(topicId);
+        this.setState({complaintsData : complaints, isComplaintsLoading:false});
+    }
+
     render(){
         const DetailedComplaintLocal = ({match}) =>{
             //TODO: change == to === once mongoDB is set because both lhs and RHS will be in form of string
@@ -95,6 +103,10 @@ class Main extends Component{
                         <Route path="/complaints/:complaintID" component={(props) => this.state.isComplaintsLoading?<div>Loading</div>  :  <DetailedComplaintLocal {...props} />} />
                         <Route path="/trendingcomplaints" name="trendingcomplaints" render={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
                         {/* <Route path="/wordcloud" name="wordcloud" render={props => <Wordcloud {...props} Wordcloud={this.state.Wordcloud} />} /> */}
+                        
+                        
+                        <Route path="/trendingtopics/:topicId" component={(props) => <TrendingTopicsComplaintsPage isUserLoggedIn={this.state.isUserLoggedIn} topicId={props.match.params.topicId} /> }/>
+                        
                         
                         <Redirect to ="/home" />
                         

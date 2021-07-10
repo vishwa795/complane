@@ -1,17 +1,15 @@
 import React, {Component, useState} from 'react';
 import {Card,CardTitle, CardBody} from 'reactstrap';
-import WordLimit from 'react-word-limit';  ///to find a character limit
-import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
 import {state_list} from '../shared/state_list';
 import Select from 'react-select';
-import {Col} from "reactstrap";
-import {getAllComplaints} from '../API_calls/complaints';
+import {getAllTrendingComplaints} from '../API_calls/complaints';
 import {complaintsData} from "../shared/exampleData";
+import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 
 
 
-export class ComplaintListCardComponent extends Component{
+export class TrendingTopicsComplaintsPage extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -21,26 +19,10 @@ export class ComplaintListCardComponent extends Component{
         }
     }
     async componentDidMount(){
-        const complaints = await getAllComplaints();
+        const complaints = await getAllTrendingComplaints(this.props.topicId);
         this.setState({complaints:complaints}); 
-        console.log("In complaintListCardComponent", complaints)
-    }
-    setComplaints = async (state="ALL") =>{
-        const complaints = await getAllComplaints(state);
-        this.setState({complaints:complaints});
-    }
-    stateSelect = (option) =>{
-        if(option.stateCode){
-            this.setComplaints(option.stateCode);
-            console.log("Has StateCode");
-            this.setState({selectedState:option},()=>console.log(this.state));
-        }
-        else{
-            this.setState({selectedState:{label:'ALL',value:'ALL'}});
-            this.setComplaints();
-        }
-    }
 
+    }
     render(){
         let renderComplaints;
 
@@ -51,7 +33,7 @@ export class ComplaintListCardComponent extends Component{
                 <div className="row">
                 {this.state.complaints.map((c) =>{
                   return(
-                  <ComplaintCard complaint={c} />
+                  <TrendingTopicsComplaintsPageFun complaint={c} />
                 )
               })}
               </div>
@@ -70,24 +52,26 @@ export class ComplaintListCardComponent extends Component{
     
 
     return(
-        <div className="card-bg">
-            <div id="state_name_dropdown_col" className="container">
-                <b>
-                    <span className="text-primary">Filter</span>
-                    <Select options={this.state.stateList} value={this.state.selectedState} 
-                    onChange={this.stateSelect} minMenuHeight="300" placeholder="Select State..."/>
-                </b>
-            </div> 
-            <div>
-            {renderComplaints}
+        <div className = "container-fluid">
+            <div className="card-bg">
+                <div id="state_name_dropdown_col" className="container">
+                    <b>
+                        {/* <span className="text-primary">Filter</span> */}
+                        {/* <Select options={this.state.stateList} value={this.state.selectedState} 
+                        onChange={this.stateSelect} minMenuHeight="300" placeholder="Select State..."/> */}
+                    </b>
+                </div> 
+                <div>
+                {renderComplaints}
+                </div>
             </div>
-        </div>
+        </div>                
     );
     }
 
 }
 
-function ComplaintCard(props){
+function TrendingTopicsComplaintsPageFun(props){
     const [upvotes,updateUpvotes]=useState(props.complaint.votes.length);
     const [isClicked, setIsClicked] = useState(false);
     const increment = () => {
@@ -99,7 +83,9 @@ function ComplaintCard(props){
         }
         setIsClicked(!isClicked);
     }
+    
     return(
+            
             <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 
             <Card id="card">
             <CardBody>
@@ -121,10 +107,13 @@ function ComplaintCard(props){
             </div>
             </CardTitle>
             <p id="min_description">
-                <WordLimit limit={100}>{props.complaint.desc}</WordLimit> 
+                {props.complaint.desc}
             </p>
             </CardBody>
             </Card>
             </div>
     )
 }
+
+
+export default TrendingTopicsComplaintsPage;

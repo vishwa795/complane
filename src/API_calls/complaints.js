@@ -18,10 +18,10 @@ complaintRegister
 const url ="http://localhost:4000"
 const FlaskUrl = "http://localhost:5000"
 
-export async function getAllComplaints(state="ALL", sort) {
+export async function getAllComplaints(state="ALL", dept="ALL",sort) {
   return new Promise(async (resolve, reject)=>{
     try{
-      const complaints = await  fetch(url + `/complaints?state=${state}&sort=${sort}`).then(res => res.json());
+      const complaints = await  fetch(url + `/complaints?state=${state}&dept=${dept}&sort=${sort}`).then(res => res.json());
       resolve(complaints);
     }
     catch(error){
@@ -29,6 +29,22 @@ export async function getAllComplaints(state="ALL", sort) {
     }
   }) 
 }
+
+
+export async function getAllTrendingComplaints(TopicID) {
+  return new Promise(async (resolve, reject)=>{
+    try{
+      const complaints = await  fetch(`http://localhost:4000/trendingTopics/${TopicID}`).then(res => res.json());
+      resolve(complaints);
+    }
+    catch(error){
+      reject(error)
+    }
+  }) 
+}
+
+
+
 
 export function getAllComplaintsForUser(uid, sort) {
   return new Promise(async (resolve, reject)=>{
@@ -204,3 +220,4 @@ export function getDepartmentForComplaints(complaint) {
     }
   }) 
 }
+
