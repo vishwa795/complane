@@ -30,6 +30,22 @@ export async function getAllComplaints(state="ALL", sort="default", dept="ALL") 
   }) 
 }
 
+
+export async function getAllTrendingComplaints(TopicID) {
+  return new Promise(async (resolve, reject)=>{
+    try{
+      const complaints = await  fetch(`http://localhost:4000/trendingTopics/${TopicID}`).then(res => res.json());
+      resolve(complaints);
+    }
+    catch(error){
+      reject(error)
+    }
+  }) 
+}
+
+
+
+
 export function getAllComplaintsForUser(uid, sort) {
   return new Promise(async (resolve, reject)=>{
     try{
@@ -204,3 +220,4 @@ export function getDepartmentForComplaints(complaint) {
     }
   }) 
 }
+
