@@ -6,9 +6,9 @@ import TrendingComplaints from './TrendingComplaints';
 import {Route,Redirect,withRouter, Switch} from 'react-router-dom';
 import ComplaintListComponent from './complaintListComponent';
 import {authorizeUser} from '../API_calls/user';
-import {getAllComplaints, getAllTrendingComplaints} from '../API_calls/complaints';
+import {getAllComplaints, getAllTrendingComplaints, upvoteComplaint} from '../API_calls/complaints';
 import TrendingTopicsComplaintsPage from './TrendingTopicsComplaintsPage';
-
+import ProtectedRoute from './PrivateRoute';
 
 
 class Main extends Component{
@@ -20,8 +20,9 @@ class Main extends Component{
             isLogin:true,
             isSignup:false,
             isForgotPassword:false,
+            isLoading:true,
 
-            user:null,
+            user:{_id:"NOT_LOGGED_IN"},
             isUserLoggedIn:false,
             isUserLoading:false,
             userError:false,
@@ -65,16 +66,29 @@ class Main extends Component{
         this.setState({user:user,isUserLoggedIn:true});
     }
     logoutUser = () => {
-        this.setState({isUserLoggedIn:false,user:null});
+        this.setState({isUserLoggedIn:false,user:{_id:"NOT_LOGGED_IN"}});
         localStorage.removeItem('accessToken');
     }
-    componentDidMount(){
+    upvoteHandler = async (complaintID) => {
+        const complaint = await upvoteComplaint(complaintID);
+        let complaintsData = this.state.complaintsData;
+        let updatedComplaintsData = complaintsData.map((oldComplaint)=>{
+            if(oldComplaint._id === complaintID){
+                return complaint;
+            }
+            return oldComplaint;
+        });
+        this.setState({complaintsData:updatedComplaintsData});
+    }
+    async componentDidMount(){
+        this.setState({isLoading:true});
         const accessToken = localStorage.getItem('accessToken');
         if(accessToken){
-            authorizeUser(accessToken,this.loginUser);
+            await authorizeUser(accessToken,this.loginUser);
         }
         this.setState({isComplaintsLoading:true});
         this.setComplaints();
+        this.setState({isLoading:false});
     }
 
     async setTrendingComplaints(topicId){
@@ -84,10 +98,10 @@ class Main extends Component{
     }
 
     render(){
-        const DetailedComplaintLocal = ({match}) =>{
+        const DetailedComplaintLocal = ({match,...props}) =>{
             //TODO: change == to === once mongoDB is set because both lhs and RHS will be in form of string
             return(
-            <DetailedComplaint complaint={this.state.complaintsData.filter((complaint) => complaint._id == match.params.complaintID)[0]} />
+            <DetailedComplaint {...props} user={this.state.user} complaintID={match.params.complaintID} />
             )
         }
         return(
@@ -98,18 +112,19 @@ class Main extends Component{
                   loginUser={this.loginUser} logoutUser={this.logoutUser} isUserLoggedIn={this.state.isUserLoggedIn} />
                   
                     <Switch location={this.props.location}>
+                        
                         <Route path="/home" component={Home} />
-                        <Route exact path="/complaints" component={(props) =>  <ComplaintListComponent isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} complaints={this.state.complaintsData} setComplaints={this.setComplaints} />} />
-                        <Route path="/complaints/:complaintID" component={(props) => this.state.isComplaintsLoading?<div>Loading</div>  :  <DetailedComplaintLocal {...props} />} />
-                        <Route path="/trendingcomplaints" name="trendingcomplaints" render={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
-                        {/* <Route path="/wordcloud" name="wordcloud" render={props => <Wordcloud {...props} Wordcloud={this.state.Wordcloud} />} /> */}
                         
+                        <ProtectedRoute isAuthenticationReq={false} isLoading={this.state.isLoading} exact path="/complaints" component={(props) =>  <ComplaintListComponent user={this.state.user} upvoteHandler={this.upvoteHandler} isUserLoggedIn={this.state.isUserLoggedIn} toggleLoginModal={this.toggle} complaints={this.state.complaintsData} setComplaints={this.setComplaints} />} />
                         
-                        <Route path="/trendingtopics/:topicId" component={(props) => <TrendingTopicsComplaintsPage isUserLoggedIn={this.state.isUserLoggedIn} topicId={props.match.params.topicId} /> }/>
+                        <ProtectedRoute isAuthenticationReq={false} isLoading={this.state.isLoading} path="/complaints/:complaintID" component={(props) =><DetailedComplaintLocal upvoteHandler={this.upvoteHandler} {...props} />} />
                         
+                        <ProtectedRoute isAuthenticationReq={false} isLoading={this.state.isLoading} path="/trendingcomplaints" name="trendingcomplaints" component={props => <TrendingComplaints {...props} Wordcloud={this.state.Wordcloud} />} />
+                        
+                        <ProtectedRoute isAuthenticationReq={false} isLoading={this.state.isLoading} path="/trendingtopics/:topicId" component={(props) => <TrendingTopicsComplaintsPage isUserLoggedIn={this.state.isUserLoggedIn} user={this.state.user} topicId={props.match.params.topicId} /> }/> 
                         
                         <Redirect to ="/home" />
-                        
+
                     </Switch>
             </div>
         )

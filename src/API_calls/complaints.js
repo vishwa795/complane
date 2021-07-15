@@ -221,3 +221,42 @@ export function getDepartmentForComplaints(complaint) {
   }) 
 }
 
+export const upvoteComplaint = async (complaintID) => {
+  return new Promise((resolve,reject)=>{
+      const accessToken = localStorage.getItem('accessToken');
+      if(!accessToken){
+        reject("Not logged in");
+      }
+      fetch(`${url}/complaints/vote/${complaintID}`, {
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer "+accessToken
+        }
+      })
+      .then(response => {
+        if(response.ok){
+          return response.json(); 
+        }
+      })
+      .then(updatedComplaint => {
+        resolve(updatedComplaint);
+      })
+      .catch(error => {
+        reject(error);
+      })
+  })
+} 
+
+export const getSingleComplaintById = (complaintID) => {
+  return new Promise((resolve,reject)=> {
+    fetch(`${url}/complaints/${complaintID}`)
+    .then(response => {
+      if(response.ok){
+        return response.json();
+      }
+    })
+    .then(complaint => resolve(complaint))
+    .catch(error => reject(error))
+  })
+}

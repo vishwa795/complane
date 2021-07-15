@@ -75,9 +75,6 @@ function NewComplaintFormComponent(props){
     }
 }
 
-   
-   
-
     return(
        <>
         {console.log(optionState)}

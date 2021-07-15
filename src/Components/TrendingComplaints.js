@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import Wordcloud from './WordCloud'
 import TrendingComplaintsCards from './TrendingComplaintsCards'
 import Select from 'react-select';
-import {Col} from "reactstrap";
+import {Col, Spinner} from "reactstrap";
 import WordCloudCards from './WordCloudCards';
 
 import dept_list from '../shared/dept_list'
@@ -20,14 +20,25 @@ const MapTrendingTopics = (props) =>{
 const TrendingComplaints = (props) => {
     const [trendingTopics,setTrendingTopics] = useState([]);
     const [selectedDept,setSelectedDept] = useState({label:'Department_of_Telecommunications', value:'Department_of_Telecommunications'});
+    const [isLoading,setIsLoading] = useState(true);
     useEffect(()=>{
         fetch("http://localhost:4000/trendingTopics?dept="+selectedDept.value)
         .then(res=>res.json())
         .then((response) =>{
             console.log(response);
             setTrendingTopics(response);
+            setIsLoading(false);
         })
     },[selectedDept])
+    if(isLoading){
+        return(
+            <div className="container">
+                <div className="text-center mt-5">
+                    <Spinner color="primary" />
+                </div>
+            </div>
+            )
+    }
         return(
             <div className="card-bg">
                 <div id="trendingcomponentmain" className="text-center">

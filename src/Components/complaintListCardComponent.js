@@ -1,13 +1,14 @@
 import React, {Component, useState} from 'react';
-import {Card,CardTitle, CardBody} from 'reactstrap';
+import {Card,CardTitle, CardBody, Spinner} from 'reactstrap';
 import WordLimit from 'react-word-limit';  ///to find a character limit
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
 import {Link} from 'react-router-dom';
 import {state_list} from '../shared/state_list';
 import Select from 'react-select';
 import {Col} from "reactstrap";
-import {getAllComplaints} from '../API_calls/complaints';
+import {getAllComplaints, upvoteComplaint} from '../API_calls/complaints';
 import {complaintsData} from "../shared/exampleData";
+import { store } from 'react-notifications-component';
 
 
 
@@ -17,45 +18,71 @@ export class ComplaintListCardComponent extends Component{
         this.state = {
             complaints:[],
             stateList:[{label:'ALL',value:'ALL'}].concat(state_list),
-            selectedState:{label:'ALL',value:'ALL'}
+            selectedState:{label:'ALL',value:'ALL'},
+            isLoading:false
         }
     }
+    setComplaints = (complaints) => {
+        let resolvedComplaints = complaints.filter((complaint)=>complaint.isResolved);
+        let unresolvedComplaints = complaints.filter((complaint)=>!complaint.isResolved);
+        this.setState({complaints:[...unresolvedComplaints,...resolvedComplaints]}); 
+    }
+
     async componentDidMount(){
+        this.setState({isLoading:true});
         const complaints = await getAllComplaints();
-        this.setState({complaints:complaints}); 
+        this.setComplaints(complaints);
         console.log("In complaintListCardComponent", complaints)
+        this.setState({isLoading:false});
     }
-    setComplaints = async (state="ALL") =>{
+
+    fetchAndSetComplaints = async (state="ALL") =>{
+        this.setState({isLoading:true});
         const complaints = await getAllComplaints(state);
-        this.setState({complaints:complaints});
+        this.setComplaints(complaints);
+        this.setState({isLoading:false});
     }
+
     stateSelect = (option) =>{
         if(option.stateCode){
-            this.setComplaints(option.stateCode);
+            this.fetchAndSetComplaints(option.stateCode);
             console.log("Has StateCode");
             this.setState({selectedState:option},()=>console.log(this.state));
         }
         else{
             this.setState({selectedState:{label:'ALL',value:'ALL'}});
-            this.setComplaints();
+            this.fetchAndSetComplaints();
         }
+    }
+
+    upvoteHandler = async (complaintID) => {
+        const complaint = await upvoteComplaint(complaintID);
+        console.log(complaint);
     }
 
     render(){
         let renderComplaints;
-
-        if(this.state.complaints.length >0){
+        if(this.state.isLoading){
+            return(
+                <div className="container">
+                    <div className="mt-5 text-center">
+                        <Spinner color="primary" />
+                    </div>
+                </div>
+            )
+        }
+        else if(this.state.complaints.length >0){
             
             renderComplaints = (
-                <>
-                <div className="row">
-                {this.state.complaints.map((c) =>{
-                  return(
-                  <ComplaintCard complaint={c} />
-                )
-              })}
+                <div className="container-fluid">
+                    <div className="row">
+                    {this.state.complaints.map((c) =>{
+                    return(
+                    <ComplaintCard upvoteHandler={this.upvoteHandler} user={this.props.user} complaint={c} />
+                    )
+                })}
+                </div>
               </div>
-              </>
             )  
         }
         else{
@@ -89,15 +116,50 @@ export class ComplaintListCardComponent extends Component{
 
 function ComplaintCard(props){
     const [upvotes,updateUpvotes]=useState(props.complaint.votes.length);
-    const [isClicked, setIsClicked] = useState(false);
-    const increment = () => {
-        if(isClicked){
-            updateUpvotes(upvotes-1);
+    const userID = props.user._id;
+    const [isClicked, setIsClicked] = useState(props.complaint.votes.indexOf(userID)!==-1);
+    const increment = async () => {
+        if(userID!="NOT_LOGGED_IN" && !props.complaint.isResolved){
+            if(isClicked){
+                updateUpvotes(upvotes-1);
+            }
+            else{
+                updateUpvotes(upvotes+1);
+            }
+            setIsClicked(!isClicked);
+            console.log(props.complaint._id);
+            await props.upvoteHandler(props.complaint._id);
+        }
+        else if(props.complaint.isResolved){
+            store.addNotification({
+                title: "Complaint Already Resolved",
+                message: "The Complaint you are trying to upvote has already been resolved",
+                type: "info",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
         }
         else{
-            updateUpvotes(upvotes+1);
+            store.addNotification({
+                title: "Login for Upvoting",
+                message: "You cannot upvote complaints while not logged in. Kindly login to upvote",
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
         }
-        setIsClicked(!isClicked);
     }
     return(
             <div id="card_div" className="col-md-6" key={props.complaint._id.toString()}> 

@@ -1,8 +1,11 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import {Button, Row, Popover,PopoverBody,PopoverHeader} from 'reactstrap';
+import {Button, Row, Popover,PopoverBody,PopoverHeader, Spinner} from 'reactstrap';
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
+import { getSingleComplaintById, upvoteComplaint } from '../API_calls/complaints';
+import { BiUpvote } from 'react-icons/bi';
+import { store } from 'react-notifications-component';
 
 function LabelMaker(props){
     return props.keywords.map((keyword) => {
@@ -14,6 +17,69 @@ function LabelMaker(props){
     })
 }
 export default function DetailedComplaint(props){
+    const complaintID = props.complaintID;
+    const [complaint,setComplaint] = useState({})
+    const [isComplaintLoading,setComplaintLoading] = useState(true);
+    useEffect(async ()=>{
+        setComplaintLoading(true);
+        const complaint = await getSingleComplaintById(props.complaintID);
+        setComplaint(complaint);
+        setComplaintLoading(false);
+    },[])
+    const userID = props.user._id;
+    //from card list
+    useEffect(()=>{
+        if(complaint.votes){
+            updateUpvotes(complaint.votes.length);
+            setIsClicked(complaint.votes.indexOf(userID)!==-1)
+        }
+    },[complaint])
+    const [upvotes,updateUpvotes]=useState(0);
+    const [isClicked, setIsClicked] = useState(false);
+    const increment = async () => {
+        if(userID!="NOT_LOGGED_IN" && !complaint.isResolved){
+            if(isClicked){
+                updateUpvotes(upvotes-1);
+            }
+            else{
+                updateUpvotes(upvotes+1);
+            }
+            setIsClicked(!isClicked);
+            console.log(complaint._id);
+            await upvoteComplaint(complaint._id);
+        }
+        else if(complaint.isResolved){
+            store.addNotification({
+                title: "Complaint Already Resolved",
+                message: "The Complaint you are trying to upvote has already been resolved",
+                type: "info",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+        }
+        else{
+            store.addNotification({
+                title: "Login for Upvoting",
+                message: "You cannot upvote complaints while not logged in. Kindly login to upvote",
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+        }
+    }
+
     const openStatus = <Button color="success" disabled>
         <span class="fa fa-lg fa-unlock-alt mr-1"></span>
         Open
@@ -21,118 +87,70 @@ export default function DetailedComplaint(props){
     const closedStatus = <Button color="danger" disabled>
         <span class="fa fa-lg fa-lock mr-1"></span>
         Closed</Button>
-    const [popUpStatus1,setPopUpStatus1] = useState(false);
-
-    const [popUpStatus2,setPopUpStatus2] = useState(false);
-
-    const [popUpStatus3,setPopUpStatus3] = useState(false);
-
-    return(
-        <div className="detailedComplaint">
-            <div className="jumbotron bg-dark languages">
+    if(isComplaintLoading){
+        return(
+            <div className="container text-center">
+                <div className="mt-5">
+                    <Spinner color="primary" />
+                </div>
+            </div>
+        )
+    }
+    else{
+        return(
+            <div className="detailedComplaint">
+                <div className="jumbotron bg-dark languages">
+                    <div className="container">
+                        <h1><Link to="/complaints">{complaint.state} / {complaint.district}</Link></h1>
+                    </div>
+                </div>
                 <div className="container">
-                    <h1><Link to="/complaints">{props.complaint.state} / {props.complaint.district}</Link></h1>
-                </div>
-            </div>
-            <div className="container">
-                <div className="row m-1">
-                    <h1>{props.complaint.title}</h1>
-                </div>
-                <div className="row m-1">
-                    {props.complaint.isResolved ?
-                        closedStatus: openStatus 
-                    }
-                </div>
-                <hr />
-                <div className="row">
-                    <div className="col-12 col-md-9 p-2">
-                        <div className="card complaint-card mb-3">
-                            <div className="card-body">
-                                <h4>{props.complaint.desc}</h4>
+                    <div className="row">
+                        <div className="col-12 col-md-9 p-2">
+                            <div className="row m-1">
+                                <h1>{complaint.title}</h1>
                             </div>
-                        </div>
-                        <div className="card complaint-card">
-                            <div className="card-body">
-                                <div className="container">
-                                <div className="status-header">
-                                    <h3>Status</h3>
-                                </div>
-                                <ProgressBar
-                                    percent={0*100/3}
-                                    filledBackground="linear-gradient(to right, rgba(63, 138, 204, 0.767), rgba(0, 116, 217, 0.767))"
-                                >
-                                    <Step transition="scale">
-                                    {({ accomplished }) => (
-                                        <div>
-                                        <div
-                                        id="Popover1" onMouseOver={()=>setPopUpStatus1(true)} onMouseLeave={()=>setPopUpStatus1(false)} className={`indexedStep ${accomplished ? "accomplished" : null}`}
-                                      >
-                                          <Popover placement="bottom" isOpen={popUpStatus1} target="Popover1" className="bg-dark" >
-                                                <PopoverHeader>Complaint Registered</PopoverHeader>
-                                                <PopoverBody>Your Complaint has been registered into our portal. Concerned Authorities will soon look into the complaint and update the status.</PopoverBody>
-                                            </Popover>
-                                    </div>
-                                    </div>
-                                    )}
-                                    </Step>
-                                    <Step transition="scale">
-                                    {({ accomplished }) => (
-                                        <div>
-                                            <div
-                                            id="Popover2" onMouseOver={()=>setPopUpStatus2(true)} onMouseLeave={()=>setPopUpStatus2(false)} className={`indexedStep ${accomplished ? "accomplished" : null}`}
-                                            >
-                                                <Popover placement="bottom" isOpen={popUpStatus2} target="Popover2">
-                                                        <PopoverHeader>Issue Identified</PopoverHeader>
-                                                        <PopoverBody>Issue has been Identified and verified by the Government personnel and the complaint is currently being resolved.</PopoverBody>
-                                                </Popover>
-                                            </div>
-                                        </div>
-                                    )}
-                                    </Step>
-                                    <Step transition="scale">
-                                    {({ accomplished }) => (
-                                        <div>
-                                            <div
-                                                id="Popover3" onMouseOver={()=>setPopUpStatus3(true)} onMouseLeave={()=>setPopUpStatus3(false)} className={`indexedStep ${accomplished ? "accomplished" : null}`}
-                                            >
-                                            <Popover placement="bottom" isOpen={popUpStatus3} target="Popover3">
-                                                    <PopoverHeader>Issue Resolved</PopoverHeader>
-                                                    <PopoverBody>Complaint is resolved by the concerned Authorities and verified.</PopoverBody>
-                                                </Popover>
-                                            </div>
-                                    </div>
-                                    )}
-                                    </Step>
-                                </ProgressBar>
+                            <div className="row m-1">
+                                {complaint.isResolved ?
+                                    closedStatus: openStatus 
+                                }
+                                <div className="ml-auto">
+                                    <h3 id="upvote_number" >{upvotes} <span onClick={increment} ><BiUpvote id="upvote" className={isClicked ? "upvote-button" : null} /></span></h3>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-3 p-2">
-                            <div className="card complaint-card">
+                            <hr />
+                            <div className="card complaint-card mb-3">
                                 <div className="card-body">
-                                <div className="container">
-                                <Row className="mb-2">
-                                Assigned to:
-                                </Row>
-                                <Row>
-                                    <h5>{props.complaint.departmentTag.replaceAll("_"," ")}</h5>
-                                </Row>
-                                <hr />
-                                <Row className="mb-2">
-                                Labels:
-                                </Row>
-                                <Row>
-                                    <LabelMaker keywords={props.complaint.keywordSet} />
-                                </Row>
-                                <hr />
+                                    <h4>{complaint.desc}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-3 p-2">
+                                <div className="card complaint-card">
+                                    <div className="card-body">
+                                    <div className="container">
+                                    <Row className="mb-2">
+                                    Assigned to:
+                                    </Row>
+                                    <Row>
+                                        <h5>{complaint.departmentTag.replaceAll("_"," ")}</h5>
+                                    </Row>
+                                    <hr />
+                                    <Row className="mb-2">
+                                    Labels:
+                                    </Row>
+                                    <Row>
+                                        <LabelMaker keywords={complaint.keywordSet} />
+                                    </Row>
+                                    <hr />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 

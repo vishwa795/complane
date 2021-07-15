@@ -1,11 +1,12 @@
 import React, {Component, useState} from 'react';
-import {Card,CardTitle, CardBody} from 'reactstrap';
+import {Card,CardTitle, CardBody, Spinner} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {state_list} from '../shared/state_list';
 import Select from 'react-select';
-import {getAllTrendingComplaints} from '../API_calls/complaints';
+import {getAllTrendingComplaints, upvoteComplaint} from '../API_calls/complaints';
 import {complaintsData} from "../shared/exampleData";
 import {BiUpvote} from 'react-icons/bi'; //For the upvote icon
+import { store } from 'react-notifications-component';
 
 
 
@@ -15,25 +16,36 @@ export class TrendingTopicsComplaintsPage extends Component{
         this.state = {
             complaints:[],
             stateList:[{label:'ALL',value:'ALL'}].concat(state_list),
-            selectedState:{label:'ALL',value:'ALL'}
+            selectedState:{label:'ALL',value:'ALL'},
+            isLoading:true
         }
     }
     async componentDidMount(){
+        this.setState({isLoading:true});
         const complaints = await getAllTrendingComplaints(this.props.topicId);
-        this.setState({complaints:complaints}); 
+        this.setState({complaints:complaints,isLoading:false}); 
 
     }
     render(){
         let renderComplaints;
-
-        if(this.state.complaints.length >0){
+        if(this.state.isLoading){
+            console.log("is loading");
+            return(
+            <div className="container">
+                <div className="text-center mt-5">
+                    <Spinner color="primary" />
+                </div>
+            </div>
+            )
+        }
+        else if(this.state.complaints.length >0){
             
             renderComplaints = (
                 <>
                 <div className="row">
                 {this.state.complaints.map((c) =>{
                   return(
-                  <TrendingTopicsComplaintsPageFun complaint={c} />
+                  <TrendingTopicsComplaintsPageFun user={this.props.user} complaint={c} />
                 )
               })}
               </div>
@@ -73,15 +85,50 @@ export class TrendingTopicsComplaintsPage extends Component{
 
 function TrendingTopicsComplaintsPageFun(props){
     const [upvotes,updateUpvotes]=useState(props.complaint.votes.length);
-    const [isClicked, setIsClicked] = useState(false);
-    const increment = () => {
-        if(isClicked){
-            updateUpvotes(upvotes-1);
+    const userID = props.user._id;
+    const [isClicked, setIsClicked] = useState(props.complaint.votes.indexOf(userID)!==-1);
+    const increment = async () => {
+        if(userID!="NOT_LOGGED_IN" && !props.complaint.isResolved){
+            if(isClicked){
+                updateUpvotes(upvotes-1);
+            }
+            else{
+                updateUpvotes(upvotes+1);
+            }
+            setIsClicked(!isClicked);
+            console.log(props.complaint._id);
+            await upvoteComplaint(props.complaint._id);
+        }
+        else if(props.complaint.isResolved){
+            store.addNotification({
+                title: "Complaint Already Resolved",
+                message: "The Complaint you are trying to upvote has already been resolved",
+                type: "info",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
         }
         else{
-            updateUpvotes(upvotes+1);
+            store.addNotification({
+                title: "Login for Upvoting",
+                message: "You cannot upvote complaints while not logged in. Kindly login to upvote",
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
         }
-        setIsClicked(!isClicked);
     }
     
     return(

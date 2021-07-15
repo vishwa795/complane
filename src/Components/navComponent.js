@@ -32,12 +32,12 @@ class Header extends Component{
             </NavItem>
             </div>
           </Nav>
-          <Form className="form-inline">
+          {/* <Form className="form-inline">
                 <FormGroup>
                     <Input type="text" name="query" placeholder="Search" className="m-1 ml-auto"/>{'   '}
                     <Button outline color="primary" id="searchButton" className="m-1 ml-auto mb-auto" ><span className="fa fa-lg fa-search " /> Search </Button>
                 </FormGroup>
-            </Form>
+            </Form> */}
             {this.props.isUserLoggedIn?
             <span>
               <Button outline color="danger" id="login-button" onClick={this.props.logoutUser} ><span className="fa fa-lg fa-sign-out " /> LogOut </Button>
