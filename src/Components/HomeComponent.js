@@ -71,7 +71,7 @@ class Home extends Component{
                 <div className="col-12 col-md-7 large-screen-text">
                     <div className="top-text">
                         <br/>
-                        <h1>781 Districts. 26 States. 1 Stop for all Complaints</h1>
+                        <h1>718 Districts. 29 States. 1 Stop for all Complaints</h1>
                     </div>
                     <div className="mid-text">
                         <br/>
