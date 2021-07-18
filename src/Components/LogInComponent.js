@@ -12,6 +12,76 @@ function LoginModal(props){
 
     const setUsernameForLogin = (username) => setUsernameLogin(username);
     const setPasswordForLogin = (password) => setPasswordLogin(password);
+    const signUp = async () => {
+      try{
+        if(passwordSignup !== confirmPasswordSignup){
+          store.addNotification({
+            title: "Password does not match",
+            message: "Please make sure the passwords entered by you match.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+          return;
+        }
+        console.log({
+          username:usernameSignup,
+          password:passwordSignup
+        });
+        const response = await fetch('http://localhost:4000/users/signup',{
+          method:"POST",
+          body:JSON.stringify({
+            username:usernameSignup,
+            password:passwordSignup
+          }),
+          headers:{
+            "Content-Type":"application/json"
+          }
+        }).then(response => response.json())
+        if(response.success){
+          store.addNotification({
+            title: "Signup SuccessFull",
+            message: "You have Successfully Signed Up!",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+          setUsernameSignup('');
+          setPasswordSignup('');
+          setConfirmPasswordSignup('');
+        }
+        else{
+          store.addNotification({
+            title: "Signup Unsuccessful",
+            message: response.err.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+        }
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
     const signIn = () =>{
       console.log('COming heer');
       fetch('http://localhost:4000/users/login',{
@@ -44,6 +114,21 @@ function LoginModal(props){
           });
           props.loginUser(response.user);
           props.toggle();
+        }
+        else{
+          store.addNotification({
+            title: "Login Unuccessful",
+            message: response.err.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
         }
       },(error)=>{
         store.addNotification({
@@ -83,7 +168,7 @@ function LoginModal(props){
         setUsername={setUsernameForLogin} setPassword={setPasswordForLogin} /> 
     }
     else if(props.isSignup){
-        content = <Signup toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} />
+        content = <Signup usernameSignup={usernameSignup} signUp={signUp} setUsernameSignup={setUsernameSignup} passwordSignup={passwordSignup} setPasswordSignup={setPasswordSignup} confirmPasswordSignup={confirmPasswordSignup} setConfirmPasswordSignup={setConfirmPasswordSignup} toggleLoginContent={props.toggleLoginContent} toggleSignupContent={props.toggleSignupContent} />
     }
     else if(props.isForgotPassword){
         content = <ForgotPassword toggleLoginContent={props.toggleLoginContent} toggleForgotPasswordContent ={props.toggleForgotPasswordContent}/>
@@ -150,18 +235,18 @@ function Signup(props){
                         <Form>
                           <FormGroup>
                             <Label for="username">Enter your Username</Label>
-                            <Input type="email" name="username" id="username" placeholder="Enter your username here"/>
+                            <Input type="email" name="username" id="username" placeholder="Enter your username here" value={props.usernameSignup} onChange={(e)=>props.setUsernameSignup(e.target.value)}/>
                           </FormGroup>
                           <FormGroup>
                             <Label for="password">Enter your Password</Label>
-                            <Input type="password" name="password" id="password" placeholder="Enter your password here"/>
+                            <Input type="password" name="password" id="password" placeholder="Enter your password here" value={props.passwordSignup} onChange={(e)=>props.setPasswordSignup(e.target.value)} />
                           </FormGroup>
                           <FormGroup>
                             <Label for="password">Confirm Password</Label>
-                            <Input type="password" name="confirmPassword" id="confirmPassword" placeholder="Re-enter password"/>
+                            <Input type="password" name="confirmPassword" id="confirmPassword" placeholder="Re-enter password" value={props.confirmPasswordSignup} onChange={(e)=>props.setConfirmPasswordSignup(e.target.value)} />
                           </FormGroup>
                           <FormGroup className="d-flex justify-content-center">
-                            <Button name="login" className="login-button bg-success">Sign up <span className="fa fa-md fa-arrow-right " /></Button>
+                            <Button name="login" className="login-button bg-success" onClick={async()=>{await props.signUp();}}>Sign up <span className="fa fa-md fa-arrow-right " /></Button>
                           </FormGroup>
                           <div className="d-flex justify-content-center">
                             <span>Already have an account? <a href="#" onClick={() => {
