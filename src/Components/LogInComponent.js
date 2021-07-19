@@ -196,12 +196,12 @@ function Login(props){
                             <Label for="password">Password</Label>
                             <Input type="password" name="password" id="password" value={props.password} onChange={(event)=>props.setPassword(event.target.value)} placeholder="Enter your password here"/>
                           </FormGroup>
-                          <div className="d-flex justify-content-end">
+                          {/* <div className="d-flex justify-content-end">
                             <a href="#" onClick={() => {
                                 props.toggleLoginContent();
                                 props.toggleForgotPasswordContent();
                             }}>Forgot Your Password ?</a>
-                          </div>
+                          </div> */}
                           <br />
                           <FormGroup className="d-flex justify-content-center">
                             <Button name="login" className="login-button bg-success" onClick={props.signIn} >Log In <span className="fa fa-md fa-arrow-right " /></Button>
@@ -214,14 +214,14 @@ function Login(props){
                           </div>
                         </Form>
                         <hr />
-                        <Row>
+                        {/* <Row>
                           <Col md={6} sm={12}>
                             <Button className="g-button m-1"><span className="fa fa-lg fa-google"></span> Login with Google </Button>
                           </Col>
                           <Col md={6} sm={12}>
                           <Button className="fb-button m-1"><span className="fa fa-lg fa-facebook"></span> Login with Facebook </Button>
                           </Col>
-                        </Row>
+                        </Row> */}
                 </ModalBody>
     )
 }
@@ -256,14 +256,14 @@ function Signup(props){
                           </div>
                         </Form>
                         <hr />
-                        <Row>
+                        {/* <Row>
                           <Col md={6} sm={12}>
                             <Button className="g-button m-1"><span className="fa fa-lg fa-google"></span> Signup with Google </Button>
                           </Col>
                           <Col md={6} sm={12}>
                           <Button className="fb-button m-1"><span className="fa fa-lg fa-facebook"></span> Signup with Facebook </Button>
                           </Col>
-                        </Row>
+                        </Row> */}
                       </ModalBody>
     )
 }
